@@ -4,501 +4,531 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>CLASH OF TITANS: Arman vs Jamai</title>
+    <title>System Access: ROMANA</title>
 
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
 
     <!-- Fonts -->
     <link
-        href="https://fonts.googleapis.com/css2?family=Bangers&family=Noto+Sans+Bengali:wght@400;700&family=Comic+Neue:wght@700&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Noto+Sans+Bengali:wght@400;700&display=swap"
         rel="stylesheet">
-
-    <!-- Confetti -->
-    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
     <!-- Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
-        body {
-            background-color: #fde047;
-            /* Yellow Pop Art */
-            background-image: radial-gradient(#facc15 15%, transparent 16%);
-            background-size: 20px 20px;
-            font-family: 'Comic Neue', cursive;
-            overflow: hidden;
-            touch-action: manipulation;
+        :root {
+            --neon-green: #0f0;
+            --neon-blue: #00f3ff;
+            --dark-bg: #050505;
+            --crt-line: rgba(18, 16, 16, 0.1);
         }
 
-        .comic-font {
-            font-family: 'Bangers', cursive;
-            letter-spacing: 2px;
+        body {
+            background-color: var(--dark-bg);
+            color: var(--neon-green);
+            font-family: 'Share Tech Mono', monospace;
+            overflow: hidden;
+            height: 100vh;
+            width: 100vw;
         }
 
         .bangla {
             font-family: 'Noto Sans Bengali', sans-serif;
         }
 
-        /* Comic Box */
-        .comic-box {
-            border: 4px solid black;
-            background: white;
-            box-shadow: 10px 10px 0px rgba(0, 0, 0, 1);
-            position: relative;
-        }
-
-        /* Fight Characters */
-        .fighter {
-            font-size: 4rem;
-            transition: transform 0.2s;
-            display: inline-block;
-        }
-
-        .fighter.attack-left {
-            transform: translateX(50px) rotate(20deg) scale(1.2);
-        }
-
-        .fighter.attack-right {
-            transform: translateX(-50px) rotate(-20deg) scale(1.2);
-        }
-
-        .fighter.hit {
-            filter: grayscale(100%) blur(2px);
-            transform: scale(0.8);
-        }
-
-        /* Speech Bubbles */
-        .bubble {
-            position: absolute;
-            background: #fff;
-            border: 3px solid #000;
-            border-radius: 20px;
-            padding: 10px;
-            max-width: 150px;
-            font-size: 12px;
-            font-weight: bold;
-            opacity: 0;
-            transition: opacity 0.3s;
-            z-index: 10;
-        }
-
-        .bubble::after {
-            content: '';
-            position: absolute;
-            border-style: solid;
-            border-width: 10px 10px 0;
-            border-color: #000 transparent transparent transparent;
-            bottom: -10px;
-            left: 50%;
-            transform: translateX(-50%);
-        }
-
-        .bubble.left {
-            top: -80px;
+        /* CRT Scanline Effect */
+        .scanlines {
+            position: fixed;
+            top: 0;
             left: 0;
-        }
-
-        .bubble.right {
-            top: -80px;
-            right: 0;
-        }
-
-        /* Health Bars */
-        .hp-bar-container {
-            width: 100px;
-            height: 15px;
-            background: #333;
-            border: 2px solid black;
-            transform: skewX(-20deg);
-        }
-
-        .hp-bar {
-            height: 100%;
-            background: linear-gradient(90deg, #ef4444, #f87171);
             width: 100%;
-            transition: width 0.3s;
+            height: 100%;
+            background: linear-gradient(to bottom,
+                    rgba(255, 255, 255, 0),
+                    rgba(255, 255, 255, 0) 50%,
+                    rgba(0, 0, 0, 0.2) 50%,
+                    rgba(0, 0, 0, 0.2));
+            background-size: 100% 4px;
+            pointer-events: none;
+            z-index: 50;
         }
 
-        /* VS Badge */
-        .vs-badge {
-            background: #ef4444;
-            color: white;
-            border: 4px solid black;
-            border-radius: 50%;
-            width: 60px;
-            height: 60px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-family: 'Bangers', cursive;
-            font-size: 24px;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%) rotate(-10deg);
-            z-index: 20;
-            box-shadow: 5px 5px 0 black;
+        .glow-text {
+            text-shadow: 0 0 10px var(--neon-green), 0 0 20px var(--neon-green);
         }
 
-        /* Hit Effects */
-        .pow {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%) scale(0);
-            font-family: 'Bangers', cursive;
-            font-size: 4rem;
-            color: #ef4444;
-            text-shadow: 3px 3px 0 black;
-            z-index: 30;
-            transition: transform 0.1s;
+        .glow-blue {
+            color: var(--neon-blue);
+            text-shadow: 0 0 10px var(--neon-blue);
         }
 
-        .pow.active {
-            transform: translate(-50%, -50%) scale(1.5) rotate(-15deg);
+        .terminal-cursor::after {
+            content: '█';
+            animation: blink 1s infinite;
         }
 
-        /* Shake Animation */
-        .shake-screen {
-            animation: shake 0.5s;
-        }
+        @keyframes blink {
 
-        @keyframes shake {
-            0% {
-                transform: translate(1px, 1px) rotate(0deg);
-            }
-
-            10% {
-                transform: translate(-1px, -2px) rotate(-1deg);
-            }
-
-            30% {
-                transform: translate(3px, 2px) rotate(0deg);
+            0%,
+            100% {
+                opacity: 1;
             }
 
             50% {
-                transform: translate(-1px, 2px) rotate(-1deg);
-            }
-
-            70% {
-                transform: translate(3px, 1px) rotate(-1deg);
-            }
-
-            100% {
-                transform: translate(0, 0) rotate(0deg);
+                opacity: 0;
             }
         }
 
-        /* Winner Screen */
-        #screen-winner {
-            background: radial-gradient(circle, #ec4899 0%, #000 100%);
+        /* Button Styling */
+        .cyber-btn {
+            border: 1px solid var(--neon-green);
+            background: rgba(0, 255, 0, 0.1);
+            color: var(--neon-green);
+            padding: 10px 20px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 20px;
+            display: inline-block;
+        }
+
+        .cyber-btn:hover,
+        .cyber-btn:active {
+            background: var(--neon-green);
+            color: black;
+            box-shadow: 0 0 20px var(--neon-green);
+        }
+
+        /* Glitch Effect */
+        .glitch {
+            position: relative;
+        }
+
+        .glitch::before,
+        .glitch::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .glitch::before {
+            left: 2px;
+            text-shadow: -1px 0 red;
+            clip: rect(24px, 550px, 90px, 0);
+            animation: glitch-anim-2 3s infinite linear alternate-reverse;
+        }
+
+        .glitch::after {
+            left: -2px;
+            text-shadow: -1px 0 blue;
+            clip: rect(85px, 550px, 140px, 0);
+            animation: glitch-anim 2.5s infinite linear alternate-reverse;
+        }
+
+        @keyframes glitch-anim {
+            0% {
+                clip: rect(10px, 9999px, 30px, 0);
+            }
+
+            20% {
+                clip: rect(80px, 9999px, 100px, 0);
+            }
+
+            100% {
+                clip: rect(0, 9999px, 0, 0);
+            }
+        }
+
+        /* Layout */
+        #terminal-window {
+            padding: 20px;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            overflow-y: auto;
+        }
+
+        .log-entry {
+            margin-bottom: 10px;
+            opacity: 0;
+            transform: translateX(-20px);
+            transition: all 0.5s ease;
+        }
+
+        .log-visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        #final-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 40;
+            display: none;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 4px;
+            background: #111;
+            margin-top: 10px;
+            position: relative;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--neon-green);
+            width: 0%;
+            transition: width 0.1s linear;
         }
     </style>
 </head>
 
-<body class="flex flex-col items-center justify-center min-h-screen p-4">
+<body>
 
-    <!-- AUDIO -->
-    <audio id="bgm" loop src="https://pixabay.com/music/beats-retro-gaming-music-2-19253/"></audio>
-    <audio id="hit-sound" src="https://assets.mixkit.co/sfx/preview/mixkit-cartoon-punch-2149.mp3"></audio>
-    <audio id="bell-sound" src="https://assets.mixkit.co/sfx/preview/mixkit-boxing-bell-ring-1620.mp3"></audio>
-    <audio id="win-sound" src="https://assets.mixkit.co/sfx/preview/mixkit-winning-chimes-2015.mp3"></audio>
+    <audio id="bg-music" loop>
+        <source src="https://pixabay.com/music/scifi-cyberpunk-doomsday-13615/" type="audio/mpeg">
+    </audio>
 
-    <!-- === SCREEN 1: INTRO === -->
-    <div id="screen-intro" class="text-center max-w-md w-full comic-box p-8 bg-white rotate-1">
-        <h1 class="comic-font text-5xl text-red-600 mb-2 drop-shadow-md">THE FIGHT</h1>
-        <h2 class="text-xl font-bold mb-6 bg-black text-white inline-block px-4 py-1 skew-x-[-10deg]">FOR THE BIRTHDAY
-            CAKE</h2>
+    <div class="scanlines"></div>
 
-        <div class="flex justify-center gap-8 mb-8">
-            <div class="text-center">
-                <div class="text-4xl mb-2">😎</div>
-                <p class="font-bold text-sm bg-blue-100 px-2 rounded">ARMAN</p>
-                <p class="text-[10px] text-gray-500">Best Friend</p>
-            </div>
-            <div class="text-center">
-                <div class="text-4xl mb-2">🤵</div>
-                <p class="font-bold text-sm bg-green-100 px-2 rounded">JAMAI</p>
-                <p class="text-[10px] text-gray-500">The Husband</p>
-            </div>
-        </div>
-
-        <p class="bangla text-sm text-gray-600 mb-6">
-            রোমানার জন্মদিনে কে সারপ্রাইজ দিবে? <br>
-            <span class="font-bold text-red-500">ভয়ংকর যুদ্ধ শুরু হতে যাচ্ছে!</span>
-        </p>
-
-        <button onclick="startMatch()"
-            class="bg-red-500 hover:bg-red-600 text-white font-bold py-3 px-8 border-4 border-black shadow-[4px_4px_0_0_black] active:shadow-none active:translate-x-1 active:translate-y-1 transition text-xl comic-font">
-            FIGHT!
-        </button>
+    <div id="terminal-window" class="max-w-2xl mx-auto">
+        <!-- Content injected via JS -->
     </div>
 
-
-    <!-- === SCREEN 2: THE ARENA === -->
-    <div id="screen-arena" class="hidden w-full max-w-md relative">
-
-        <!-- Header -->
-        <div class="flex justify-between items-center mb-10 px-2">
-            <div>
-                <div class="hp-bar-container">
-                    <div id="hp-arman" class="hp-bar"></div>
-                </div>
-                <p class="text-xs font-bold mt-1">ARMAN</p>
-            </div>
-            <div class="comic-font text-2xl text-red-600 bg-white border-2 border-black px-2 rounded">VS</div>
-            <div class="text-right">
-                <div class="hp-bar-container">
-                    <div id="hp-jamai" class="hp-bar"></div>
-                </div>
-                <p class="text-xs font-bold mt-1">JAMAI</p>
-            </div>
-        </div>
-
-        <!-- The Fighters -->
-        <div class="flex justify-between items-end px-8 mb-4 relative h-40">
-            <!-- Arman -->
-            <div class="relative">
-                <div id="bubble-arman" class="bubble left bangla text-blue-800"></div>
-                <div id="fighter-arman" class="fighter">😎</div>
-            </div>
-
-            <!-- VS Badge center -->
-            <div class="vs-badge">VS</div>
-            <div id="pow-effect" class="pow">POW!</div>
-
-            <!-- Jamai -->
-            <div class="relative">
-                <div id="bubble-jamai" class="bubble right bangla text-green-800"></div>
-                <div id="fighter-jamai" class="fighter">🤵</div>
-            </div>
-        </div>
-
-        <!-- Dialogue / Commentary Box -->
-        <div class="comic-box p-4 bg-white mb-4 min-h-[100px]">
-            <p class="text-[10px] text-gray-400 font-bold uppercase mb-1">COMMENTARY:</p>
-            <p id="commentary" class="bangla text-sm font-bold leading-relaxed text-center">
-                ম্যাচ শুরু! দুই পক্ষই রেডি...
-            </p>
-        </div>
-
-        <!-- Action Buttons -->
-        <div id="controls" class="grid grid-cols-2 gap-4">
-            <button onclick="nextTurn()"
-                class="col-span-2 bg-yellow-400 text-black font-bold py-4 border-4 border-black shadow-[4px_4px_0_0_black] active:shadow-none comic-font text-xl">
-                NEXT ROUND >>
-            </button>
-        </div>
-
-    </div>
-
-
-    <!-- === SCREEN 3: THE WINNER === -->
-    <div id="screen-winner"
-        class="hidden fixed inset-0 z-50 flex flex-col items-center justify-center p-6 text-center text-white">
-
-        <h1 class="comic-font text-6xl text-yellow-400 mb-2 drop-shadow-[4px_4px_0_black]">K.O!</h1>
-        <div class="text-8xl mb-6 animate-bounce">👸</div>
-
-        <div
-            class="bg-white text-black p-6 border-4 border-black shadow-[10px_10px_0_rgba(0,0,0,0.5)] transform -rotate-2 max-w-sm">
-            <h2 class="text-2xl font-bold bangla mb-2 text-pink-600">বিজয়িনী: রোমানা!</h2>
-            <p class="bangla text-sm mb-4">
-                "তোরা মারামারি কর! কেক আমি একাই খাবো।" 🎂
-            </p>
-            <div class="border-t-2 border-dashed border-gray-300 pt-2">
-                <p class="text-xs text-gray-500 font-bold">FINAL SCORE:</p>
-                <p class="text-xs">Arman: Best Friend Forever</p>
-                <p class="text-xs">Jamai: Wallet Provider</p>
-            </div>
-        </div>
-
-        <div class="mt-8">
-            <h2 class="comic-font text-4xl text-white mb-2">HAPPY BIRTHDAY!</h2>
-            <p class="text-sm text-pink-200">Have a legendary year ahead!</p>
-        </div>
-
-        <button onclick="location.reload()"
-            class="mt-8 text-xs text-gray-400 hover:text-white uppercase tracking-widest border-b border-gray-500">Re-match</button>
-    </div>
+    <canvas id="final-canvas"></canvas>
 
     <script>
-        // --- SCRIPT DATA ---
-        const script = [
+        const terminal = document.getElementById('terminal-window');
+        const audio = document.getElementById('bg-music');
+        let step = 0;
+
+        // --- DATA STORE ---
+        const storyData = [
+            // STEP 0: BOOT
             {
-                attacker: 'arman',
-                msg: "দোস্ত! আমি ৮ বছরের বন্ধু। কেক আমিই কাটবো!",
-                commentary: "আরমান 'Emotional Blackmail' ব্যবহার করলো!",
-                dmg: 20
+                type: 'boot',
+                lines: [
+                    "Initializing System...",
+                    "Loading Kernel v8.0...",
+                    "Checking Memory Integrity...",
+                    "Target Subject: ROMANA AFROZ"
+                ]
             },
+            // STEP 1: AUTH
             {
-                attacker: 'jamai',
-                msg: "হ্যালো? আমি ওর স্বামী! হানিমুনে কে নিবে?",
-                commentary: "জামাই 'Honeymoon Package' ছুড়ে মারলো!",
-                dmg: 20
+                type: 'interaction',
+                text: "IDENTITY VERIFICATION REQUIRED.",
+                sub: "Are you Romana?",
+                btn: "Yes, Access Data",
+                action: "startAnalysis"
             },
+            // STEP 2: ANALYSIS
             {
-                attacker: 'arman',
-                msg: "আমার কাছে তোর পচা ছবি আছে। ফেসবুকে দিবো?",
-                commentary: "ওরে বাবা! আরমান 'Old Photos' দিয়ে হুমকি দিলো!",
-                dmg: 30
+                type: 'analysis',
+                lines: [
+                    "Access Granted.",
+                    "Scanning Timeline: 2017 - 2025...",
+                    "Analyzing Friendship Protocol...",
+                    "> Friendship Duration: 8 Years",
+                    "> Bond Strength: 100%",
+                    "> Status: Best Friends / Family",
+                    "Loading file: 'The Last Single Birthday.exe'..."
+                ]
             },
+            // STEP 3: CHAPTER 1
             {
-                attacker: 'jamai',
-                msg: "বেশি কথা বললে শপিং-এর কার্ড ব্লক করে দিবো!",
-                commentary: "জামাই 'Credit Card Lock' অ্যাক্টিভেট করলো! ক্রিটিকাল ড্যামেজ!",
-                dmg: 40
+                type: 'chapter',
+                title: "FILE 01: THE BEGINNING",
+                bangla: "মনে আছে ৮ বছর আগের কথা?",
+                english: "It feels like yesterday. Strangers turned into family. We grew up together.",
+                btn: "Load Next Memory",
+                action: "nextChapter"
             },
+            // STEP 4: CHAPTER 2
             {
-                attacker: 'romana', // Special case
-                msg: "চুপ কর তোরা!!!",
-                commentary: "রোমানা রেগে গেছে! পরিস্থিতি ভয়ানক!",
-                dmg: 100
+                type: 'chapter',
+                title: "FILE 02: THE CHAOS",
+                bangla: "কত ঝগড়া, কত অভিমান, আবার মিল।",
+                english: "No matter what happened, we always found our way back. You tolerated me for 8 years. That's a record.",
+                btn: "Proceed to Present",
+                action: "nextChapter"
+            },
+            // STEP 5: CHAPTER 3 (Present)
+            {
+                type: 'chapter',
+                title: "FILE 03: THE TRANSITION",
+                bangla: "সামনে নতুন জীবন। বিয়ের সানাই বাজবে কিছুদিন পর।",
+                english: "This is your last birthday as 'Ms. Romana'. A huge chapter is closing, and a beautiful one is opening.",
+                btn: "Initialize Surprise",
+                action: "triggerGlitch"
             }
         ];
 
-        let turn = 0;
-        let hpArman = 100;
-        let hpJamai = 100;
+        // --- FUNCTIONS ---
 
-        // Sounds
-        const bgm = document.getElementById('bgm');
-        const hitSnd = document.getElementById('hit-sound');
-        const bellSnd = document.getElementById('bell-sound');
-        const winSnd = document.getElementById('win-sound');
+        // Helper: Typewriter Effect
+        function typeLine(text, className = "", speed = 30) {
+            return new Promise(resolve => {
+                const p = document.createElement('p');
+                p.className = `log-entry ${className}`;
+                p.innerHTML = `<span class="terminal-cursor"></span>`;
+                terminal.appendChild(p);
 
-        // Elements
-        const fArman = document.getElementById('fighter-arman');
-        const fJamai = document.getElementById('fighter-jamai');
-        const bArman = document.getElementById('bubble-arman');
-        const bJamai = document.getElementById('bubble-jamai');
-        const comms = document.getElementById('commentary');
-        const pow = document.getElementById('pow-effect');
-        const barArman = document.getElementById('hp-arman');
-        const barJamai = document.getElementById('hp-jamai');
+                // Trigger fade in
+                setTimeout(() => p.classList.add('log-visible'), 10);
+                terminal.scrollTop = terminal.scrollHeight;
 
-        function startMatch() {
-            document.getElementById('screen-intro').style.display = 'none';
-            document.getElementById('screen-arena').style.display = 'block';
+                let i = 0;
+                const span = p.querySelector('span');
 
-            bgm.volume = 0.3;
-            bgm.play().catch(() => { });
-            bellSnd.play();
-
-            comms.innerText = "রাউন্ড ১: ঝগড়া শুরু!";
+                function typeChar() {
+                    if (i < text.length) {
+                        span.insertAdjacentText('beforebegin', text.charAt(i));
+                        i++;
+                        setTimeout(typeChar, speed);
+                    } else {
+                        span.remove(); // Remove cursor
+                        resolve();
+                    }
+                }
+                typeChar();
+            });
         }
 
-        function nextTurn() {
-            if (turn >= script.length) {
-                endGame();
-                return;
+        // Helper: Create Button
+        function createButton(text, actionName) {
+            const btn = document.createElement('button');
+            btn.className = 'cyber-btn log-entry log-visible';
+            btn.innerText = `[ ${text} ]`;
+            btn.onclick = () => {
+                btn.remove(); // Remove button after click
+                window[actionName]();
+            };
+            terminal.appendChild(btn);
+            terminal.scrollTop = terminal.scrollHeight;
+        }
+
+        // --- SEQUENCE LOGIC ---
+
+        async function startSequence() {
+            // Boot sequence
+            const bootLines = storyData[0].lines;
+            for (let line of bootLines) {
+                await typeLine(`> ${line}`, "text-gray-400", 20);
+            }
+            await typeLine("--------------------------------", "text-gray-500");
+
+            // Show Interaction 1
+            setTimeout(() => {
+                typeLine(storyData[1].text, "text-red-500 font-bold", 50).then(() => {
+                    typeLine(storyData[1].sub, "bangla text-white").then(() => {
+                        createButton(storyData[1].btn, storyData[1].action);
+                    });
+                });
+            }, 500);
+        }
+
+        window.startAnalysis = async function () {
+            audio.volume = 0.5;
+            audio.play().catch(e => console.log("Audio requires interaction"));
+
+            await typeLine("> User Verified: Romana Afroz", "text-green-400");
+            await typeLine("> Decrypting Friendship Core...", "text-blue-400");
+
+            // Progress Bar simulation
+            const barContainer = document.createElement('div');
+            barContainer.className = 'progress-bar';
+            const barFill = document.createElement('div');
+            barFill.className = 'progress-fill';
+            barContainer.appendChild(barFill);
+            terminal.appendChild(barContainer);
+
+            // Animate bar
+            for (let i = 0; i <= 100; i += 2) {
+                barFill.style.width = i + '%';
+                await new Promise(r => setTimeout(r, 20));
+            }
+            await new Promise(r => setTimeout(r, 500));
+            barContainer.remove();
+
+            // Analysis Lines
+            const lines = storyData[2].lines;
+            for (let line of lines) {
+                await typeLine(line, line.includes('Duration') ? 'text-yellow-400' : 'text-gray-300', 10);
             }
 
-            const move = script[turn];
+            await typeLine("--------------------------------", "text-gray-500");
+            loadChapter(3); // Load Chapter 1
+        };
 
-            // Special Finale
-            if (move.attacker === 'romana') {
-                triggerRomanaRage();
-                return;
+        window.nextChapter = function () {
+            step++;
+            loadChapter(step + 3); // Based on index logic
+        };
+
+        async function loadChapter(index) {
+            const data = storyData[index];
+            if (!data) return;
+
+            terminal.innerHTML = ''; // Clear screen for chapter focus
+
+            await typeLine(`> ACCESSING: ${data.title}`, "glow-blue font-bold text-xl mb-4");
+            await new Promise(r => setTimeout(r, 500));
+
+            await typeLine(data.bangla, "bangla text-white text-lg leading-relaxed", 40);
+            await new Promise(r => setTimeout(r, 800));
+
+            await typeLine(data.english, "text-gray-400 text-sm italic mt-2", 20);
+            await new Promise(r => setTimeout(r, 500));
+
+            createButton(data.btn, data.action);
+        }
+
+        window.triggerGlitch = async function () {
+            terminal.innerHTML = '';
+
+            // Play intense part or just visual chaos
+            document.body.style.backgroundColor = '#1a0000';
+            document.documentElement.style.setProperty('--neon-green', 'red');
+
+            await typeLine("CRITICAL ERROR DETECTED", "text-red-500 font-bold text-2xl glitch", 10);
+            await typeLine("> EMOTION OVERLOAD", "text-red-400", 10);
+            await typeLine("> SYSTEM CANNOT HANDLE AMOUNT OF LOVE", "text-red-400", 10);
+
+            // Random binary chaos
+            const chaos = document.createElement('div');
+            chaos.className = 'fixed inset-0 text-xs break-all opacity-20 text-red-700 z-0 pointer-events-none';
+            document.body.appendChild(chaos);
+
+            let counter = 0;
+            const glitchInterval = setInterval(() => {
+                chaos.innerText += Math.random().toString(2).substring(2);
+                counter++;
+                if (counter > 50) {
+                    clearInterval(glitchInterval);
+                    chaos.remove();
+                    triggerOverride();
+                }
+            }, 50);
+        };
+
+        async function triggerOverride() {
+            document.body.style.backgroundColor = 'black';
+            document.documentElement.style.setProperty('--neon-green', '#0f0');
+            terminal.innerHTML = '';
+
+            await typeLine("> OVERRIDE BY USER: ARMAN", "text-blue-400 font-bold");
+            await typeLine("> DEPLOYING BIRTHDAY SURPRISE...", "text-yellow-400");
+            await new Promise(r => setTimeout(r, 1000));
+
+            terminal.style.display = 'none';
+            document.querySelector('.scanlines').style.display = 'none';
+            startFireworks();
+        }
+
+        // --- CANVAS FINALE ---
+        function startFireworks() {
+            const canvas = document.getElementById('final-canvas');
+            canvas.style.display = 'block';
+            const ctx = canvas.getContext('2d');
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+
+            // Change music vibe if possible, or just volume up
+            audio.volume = 1.0;
+
+            let particles = [];
+            const colors = ['#FFD700', '#FF1493', '#00FFFF', '#ADFF2F'];
+
+            class Particle {
+                constructor(x, y, isText = false) {
+                    this.x = x;
+                    this.y = y;
+                    this.size = Math.random() * 3 + 1;
+                    this.speedX = Math.random() * 6 - 3;
+                    this.speedY = Math.random() * 6 - 3;
+                    this.color = colors[Math.floor(Math.random() * colors.length)];
+                    this.life = 100;
+                    this.isText = isText;
+                }
+                update() {
+                    this.x += this.speedX;
+                    this.y += this.speedY;
+                    this.life--;
+                    this.size *= 0.96;
+                }
+                draw() {
+                    ctx.fillStyle = this.color;
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                    ctx.fill();
+                }
             }
 
-            // Perform Move
-            performAttack(move);
-            turn++;
+            // Big Text Logic
+            let textAlpha = 0;
+
+            function animate() {
+                ctx.fillStyle = 'rgba(0, 0, 0, 0.1)';
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+                // Spawn random fireworks
+                if (Math.random() < 0.1) {
+                    const x = Math.random() * canvas.width;
+                    const y = Math.random() * canvas.height;
+                    for (let i = 0; i < 30; i++) particles.push(new Particle(x, y));
+                }
+
+                // Update particles
+                for (let i = 0; i < particles.length; i++) {
+                    particles[i].update();
+                    particles[i].draw();
+                    if (particles[i].life <= 0) {
+                        particles.splice(i, 1);
+                        i--;
+                    }
+                }
+
+                // Draw Text
+                if (textAlpha < 1) textAlpha += 0.005;
+                ctx.textAlign = 'center';
+                ctx.shadowBlur = 20;
+                ctx.shadowColor = '#FFD700';
+
+                // Title
+                ctx.font = 'bold 40px "Dancing Script"';
+                ctx.fillStyle = `rgba(255, 215, 0, ${textAlpha})`;
+                ctx.fillText("Happy Birthday", canvas.width / 2, canvas.height / 2 - 50);
+
+                // Name
+                ctx.font = 'bold 60px "Noto Sans Bengali"';
+                ctx.fillStyle = `rgba(255, 255, 255, ${textAlpha})`;
+                ctx.fillText("রোমানা", canvas.width / 2, canvas.height / 2 + 20);
+
+                // Wish
+                ctx.font = '16px monospace';
+                ctx.fillStyle = `rgba(200, 200, 200, ${textAlpha})`;
+                ctx.fillText("- Best Wishes from Arman -", canvas.width / 2, canvas.height - 50);
+
+                ctx.shadowBlur = 0;
+                requestAnimationFrame(animate);
+            }
+            animate();
         }
 
-        function performAttack(move) {
-            // 1. Show Text
-            const isArman = move.attacker === 'arman';
-            const bubble = isArman ? bArman : bJamai;
-            const attackerEl = isArman ? fArman : fJamai;
-            const victimEl = isArman ? fJamai : fArman;
-
-            // Reset visuals
-            fArman.className = 'fighter';
-            fJamai.className = 'fighter';
-            bArman.style.opacity = 0;
-            bJamai.style.opacity = 0;
-
-            // Commentary
-            comms.innerText = move.commentary;
-
-            // Attack Animation
-            setTimeout(() => {
-                bubble.innerText = move.msg;
-                bubble.style.opacity = 1;
-                attackerEl.classList.add(isArman ? 'attack-left' : 'attack-right');
-            }, 100);
-
-            // Hit Animation
-            setTimeout(() => {
-                hitSnd.currentTime = 0;
-                hitSnd.play();
-
-                // Victim reaction
-                victimEl.classList.add('hit');
-                document.getElementById('screen-arena').classList.add('shake-screen');
-                pow.classList.add('active');
-
-                // HP Damage
-                if (isArman) hpJamai -= move.dmg;
-                else hpArman -= move.dmg;
-
-                updateHP();
-
-                // Cleanup
-                setTimeout(() => {
-                    attackerEl.classList.remove(isArman ? 'attack-left' : 'attack-right');
-                    victimEl.classList.remove('hit');
-                    document.getElementById('screen-arena').classList.remove('shake-screen');
-                    pow.classList.remove('active');
-                }, 500);
-
-            }, 800);
-        }
-
-        function updateHP() {
-            barArman.style.width = Math.max(0, hpArman) + '%';
-            barJamai.style.width = Math.max(0, hpJamai) + '%';
-        }
-
-        function triggerRomanaRage() {
-            // Shake everything
-            document.body.style.backgroundColor = "#ef4444"; // Red bg
-            comms.innerText = "রোমানা: 'তোরা থামবি নাকি আমি চলে যাবো?'";
-            comms.style.color = "red";
-
-            // Both get hit
-            fArman.classList.add('hit');
-            fJamai.classList.add('hit');
-            hitSnd.play();
-
-            setTimeout(endGame, 2000);
-        }
-
-        function endGame() {
-            bgm.pause();
-            winSnd.play();
-            document.getElementById('screen-arena').style.display = 'none';
-            document.getElementById('screen-winner').style.display = 'flex';
-            fireConfetti();
-        }
-
-        function fireConfetti() {
-            var duration = 5 * 1000;
-            var animationEnd = Date.now() + duration;
-            var defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 0 };
-            var random = function (min, max) { return Math.random() * (max - min) + min; };
-
-            var interval = setInterval(function () {
-                var timeLeft = animationEnd - Date.now();
-                if (timeLeft <= 0) return clearInterval(interval);
-                var particleCount = 50 * (timeLeft / duration);
-                confetti(Object.assign({}, defaults, { particleCount, origin: { x: random(0.1, 0.3), y: Math.random() - 0.2 } }));
-                confetti(Object.assign({}, defaults, { particleCount, origin: { x: random(0.7, 0.9), y: Math.random() - 0.2 } }));
-            }, 250);
-        }
+        // Start
+        window.onload = startSequence;
 
     </script>
 </body>
