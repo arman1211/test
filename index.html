@@ -4,14 +4,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>⚠️ SECRET CHAT LEAKED</title>
+    <title>Truth-o-Meter 3000</title>
 
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
 
     <!-- Fonts -->
     <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Noto+Sans+Bengali:wght@400;600;700&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Black+Ops+One&family=Noto+Sans+Bengali:wght@400;700&family=Share+Tech+Mono&display=swap"
         rel="stylesheet">
 
     <!-- Confetti -->
@@ -22,441 +22,377 @@
 
     <style>
         body {
-            background-color: #0f172a;
-            font-family: 'Inter', sans-serif;
+            background-color: #050505;
+            color: #0f0;
+            font-family: 'Share Tech Mono', monospace;
             overflow: hidden;
-            touch-action: none;
+            touch-action: manipulation;
+        }
+
+        .sci-font {
+            font-family: 'Black Ops One', cursive;
+            letter-spacing: 2px;
         }
 
         .bangla {
             font-family: 'Noto Sans Bengali', sans-serif;
         }
 
-        /* WhatsApp Style Background */
-        #chat-screen {
-            background-color: #efeae2;
-            background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M10 10h10v10H10V10zm20 20h10v10H30V30zm-10 20h10v10H20V50zm40-20h10v10H60V30zm20 20h10v10H80V50zm-20 20h10v10H60V70z' fill='%239ca3af' fill-opacity='0.05'/%3E%3C/svg%3E");
-        }
-
-        .dark-mode-chat {
-            background-color: #0b141a;
-            background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M10 10h10v10H10V10zm20 20h10v10H30V30zm-10 20h10v10H20V50zm40-20h10v10H60V30zm20 20h10v10H80V50zm-20 20h10v10H60V70z' fill='%23ffffff' fill-opacity='0.03'/%3E%3C/svg%3E");
-        }
-
-        /* Message Bubbles */
-        .msg {
-            max-width: 80%;
-            margin-bottom: 12px;
-            padding: 8px 12px;
-            border-radius: 8px;
-            font-size: 14px;
-            position: relative;
-            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
-            opacity: 0;
-            transform: translateY(20px);
-            animation: popIn 0.3s forwards;
-        }
-
-        .msg-in {
-            align-self: flex-start;
-            background: #ffffff;
-            color: #111827;
-            border-top-left-radius: 0;
-        }
-
-        .msg-out {
-            align-self: flex-end;
-            background: #d9fdd3;
-            color: #111827;
-            border-top-right-radius: 0;
-        }
-
-        .msg-sys {
-            align-self: center;
-            background: #fff5c4;
-            color: #4b5563;
-            font-size: 11px;
-            padding: 4px 12px;
-            border-radius: 4px;
-            text-align: center;
-            box-shadow: none;
-            max-width: 90%;
-            margin-top: 5px;
-            margin-bottom: 5px;
-        }
-
-        .msg-hack {
-            align-self: center;
+        /* ECG Heartbeat Animation */
+        .ecg-container {
+            width: 100%;
+            height: 100px;
             background: #000;
-            color: #0f0;
-            border: 1px solid #0f0;
-            font-family: monospace;
-            text-align: center;
+            border: 1px solid #333;
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 20px;
         }
 
-        @keyframes popIn {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        .ecg-line {
+            width: 100%;
+            height: 100%;
+            fill: none;
+            stroke: #0f0;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            animation: drawECG 2s linear infinite;
         }
 
-        .sender-name {
-            font-size: 11px;
-            font-weight: bold;
-            margin-bottom: 2px;
-            display: block;
-        }
-
-        /* Colors for senders */
-        .color-amma {
-            color: #d946ef;
-        }
-
-        /* Purple */
-        .color-nonod {
-            color: #f59e0b;
-        }
-
-        /* Orange */
-        .color-jamai {
-            color: #3b82f6;
-        }
-
-        /* Blue */
-        .color-arman {
-            color: #ef4444;
-        }
-
-        /* Red */
-
-        /* Header */
-        .header {
-            background-color: #008069;
-            /* WhatsApp Green */
-            color: white;
-        }
-
-        /* Lock Screen */
-        .blur-reveal {
-            filter: blur(10px);
-            transition: filter 1s;
-        }
-
-        .unblur {
-            filter: blur(0);
-        }
-
-        /* Hacker Shake */
-        .shake {
-            animation: shake 0.5s infinite;
-        }
-
-        @keyframes shake {
+        @keyframes drawECG {
             0% {
-                transform: translate(1px, 1px) rotate(0deg);
-            }
-
-            10% {
-                transform: translate(-1px, -2px) rotate(-1deg);
-            }
-
-            20% {
-                transform: translate(-3px, 0px) rotate(1deg);
-            }
-
-            30% {
-                transform: translate(3px, 2px) rotate(0deg);
-            }
-
-            40% {
-                transform: translate(1px, -1px) rotate(1deg);
-            }
-
-            50% {
-                transform: translate(-1px, 2px) rotate(-1deg);
-            }
-
-            60% {
-                transform: translate(-3px, 1px) rotate(0deg);
-            }
-
-            70% {
-                transform: translate(3px, 1px) rotate(-1deg);
-            }
-
-            80% {
-                transform: translate(-1px, -1px) rotate(1deg);
-            }
-
-            90% {
-                transform: translate(1px, 2px) rotate(0deg);
+                transform: translateX(-100%);
             }
 
             100% {
-                transform: translate(1px, -2px) rotate(-1deg);
+                transform: translateX(0%);
             }
+        }
+
+        /* Status Light */
+        .status-light {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #333;
+            box-shadow: inset 0 0 5px #000;
+            transition: all 0.2s;
+        }
+
+        .status-light.truth {
+            background: #0f0;
+            box-shadow: 0 0 15px #0f0;
+        }
+
+        .status-light.lie {
+            background: #f00;
+            box-shadow: 0 0 15px #f00;
+        }
+
+        /* Glitch Text */
+        .glitch {
+            animation: glitch 0.2s infinite;
+            color: red;
+            font-weight: bold;
+        }
+
+        @keyframes glitch {
+            0% {
+                transform: translate(0);
+            }
+
+            20% {
+                transform: translate(-2px, 2px);
+            }
+
+            40% {
+                transform: translate(-2px, -2px);
+            }
+
+            60% {
+                transform: translate(2px, 2px);
+            }
+
+            80% {
+                transform: translate(2px, -2px);
+            }
+
+            100% {
+                transform: translate(0);
+            }
+        }
+
+        /* Buttons */
+        .cyber-btn {
+            background: rgba(0, 255, 0, 0.1);
+            border: 1px solid #0f0;
+            color: #0f0;
+            padding: 15px;
+            width: 100%;
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-transform: uppercase;
+            font-weight: bold;
+        }
+
+        .cyber-btn:hover {
+            background: #0f0;
+            color: #000;
+        }
+
+        .cyber-btn:active {
+            transform: scale(0.98);
+        }
+
+        /* Overlay Flash */
+        .flash-overlay {
+            position: fixed;
+            inset: 0;
+            background: red;
+            opacity: 0;
+            pointer-events: none;
+            z-index: 50;
+            transition: opacity 0.1s;
+        }
+
+        .flash-overlay.active {
+            opacity: 0.5;
         }
     </style>
 </head>
 
-<body class="flex items-center justify-center min-h-screen bg-black">
+<body class="flex flex-col items-center justify-center min-h-screen p-4">
 
     <!-- AUDIO -->
-    <audio id="notif-sound" src="https://assets.mixkit.co/sfx/preview/mixkit-software-interface-start-2574.mp3"></audio>
-    <audio id="hack-sound"
-        src="https://assets.mixkit.co/sfx/preview/mixkit-glitch-interference-static-1440.mp3"></audio>
+    <audio id="heartbeat" loop src="https://assets.mixkit.co/sfx/preview/mixkit-human-heartbeat-fast-492.mp3"></audio>
+    <audio id="truth-sound" src="https://assets.mixkit.co/sfx/preview/mixkit-correct-answer-tone-2870.mp3"></audio>
+    <audio id="lie-sound"
+        src="https://assets.mixkit.co/sfx/preview/mixkit-wrong-answer-fail-notification-946.mp3"></audio>
     <audio id="party-music" loop src="https://pixabay.com/music/beats-happy-birthday-trap-version-13838/"></audio>
 
+    <div class="flash-overlay" id="flash"></div>
 
-    <!-- === SCREEN 1: THE LOCK === -->
-    <div id="screen-lock"
-        class="absolute inset-0 z-50 flex flex-col items-center justify-center bg-gray-900 text-center p-6">
-        <div class="bg-gray-800 p-8 rounded-2xl border border-red-500/50 shadow-2xl max-w-sm w-full">
-            <i class="fas fa-user-secret text-6xl text-red-500 mb-6 animate-pulse"></i>
-            <h1 class="text-2xl font-bold text-white mb-2">SECRET CHAT DETECTED</h1>
-            <p class="text-gray-400 text-sm mb-6 font-mono">
-                Source: "Future Shoshur Bari Group" <br>
-                Status: <span class="text-yellow-400">Active Gossip...</span>
-            </p>
+    <!-- === SCREEN 1: INTRO === -->
+    <div id="screen-intro"
+        class="text-center max-w-md w-full border-2 border-green-500 p-6 bg-gray-900 shadow-[0_0_20px_#0f0]">
+        <i class="fas fa-user-secret text-6xl text-green-500 mb-4 animate-pulse"></i>
+        <h1 class="sci-font text-3xl mb-2 text-white">TRUTH-O-METER</h1>
+        <p class="text-xs text-green-400 mb-6">MINISTRY OF MARRIAGE INSPECTION</p>
 
-            <button onclick="unlockChat()"
-                class="w-full bg-red-600 hover:bg-red-500 text-white font-bold py-3 px-6 rounded-lg transition transform active:scale-95 shadow-lg shadow-red-500/30">
-                TAP TO SPY 🕵️‍♀️
-            </button>
-            <p class="text-[10px] text-gray-500 mt-4">* Warning: You might get angry.</p>
+        <div class="bg-black border border-green-800 p-4 text-left font-mono text-xs text-gray-300 mb-6">
+            <p>> Subject: Romana Afroz</p>
+            <p>> Event: Last Birthday (Single Status)</p>
+            <p>> Protocol: <span class="text-red-500">HONESTY REQUIRED</span></p>
         </div>
+
+        <button onclick="startTest()" class="cyber-btn animate-bounce">
+            START INTERROGATION
+        </button>
     </div>
 
-
-    <!-- === SCREEN 2: THE CHAT === -->
-    <div id="phone-frame" class="relative w-full h-[100vh] max-w-md bg-white overflow-hidden shadow-2xl blur-reveal">
+    <!-- === SCREEN 2: INTERROGATION === -->
+    <div id="screen-test" class="hidden w-full max-w-md">
 
         <!-- Header -->
-        <div id="chat-header" class="header p-3 flex items-center gap-3 shadow-md z-10 relative">
-            <div
-                class="w-10 h-10 rounded-full bg-gray-300 flex items-center justify-center text-gray-600 font-bold overflow-hidden">
-                <i class="fas fa-users"></i>
-            </div>
-            <div class="flex-1">
-                <h2 class="font-bold text-base leading-tight">Future In-Laws 🐍</h2>
-                <p id="typing-indicator" class="text-xs text-green-100 opacity-0">Amma is typing...</p>
-            </div>
-            <div class="flex gap-4 text-xl">
-                <i class="fas fa-video"></i>
-                <i class="fas fa-phone"></i>
-                <i class="fas fa-ellipsis-v"></i>
+        <div class="flex justify-between items-center mb-4">
+            <div class="text-xs text-gray-400">STRESS LEVEL</div>
+            <div class="flex gap-2">
+                <div class="status-light" id="light-1"></div>
+                <div class="status-light" id="light-2"></div>
+                <div class="status-light" id="light-3"></div>
             </div>
         </div>
 
-        <!-- Chat Area -->
-        <div id="chat-screen" class="h-full overflow-y-auto p-4 flex flex-col pb-20">
-            <!-- Messages will be injected here -->
+        <!-- ECG Graph -->
+        <div class="ecg-container relative">
+            <svg class="absolute top-0 left-0 w-full h-full" viewBox="0 0 500 100" preserveAspectRatio="none">
+                <path class="ecg-line"
+                    d="M0,50 L50,50 L60,20 L70,80 L80,50 L150,50 L160,20 L170,80 L180,50 L250,50 L260,20 L270,80 L280,50 L350,50 L360,20 L370,80 L380,50 L450,50 L460,20 L470,80 L480,50 L500,50" />
+            </svg>
+            <div class="absolute top-2 right-2 text-green-500 font-bold animate-pulse text-sm">BPM: <span
+                    id="bpm">85</span></div>
         </div>
 
-        <!-- Footer -->
-        <div class="absolute bottom-0 w-full bg-gray-100 p-2 flex items-center gap-2 z-10">
-            <div class="bg-white rounded-full p-2 text-gray-500"><i class="far fa-smile"></i></div>
-            <div class="flex-1 bg-white rounded-full px-4 py-2 text-gray-400 text-sm">Read only...</div>
-            <div class="bg-teal-600 rounded-full p-3 text-white"><i class="fas fa-microphone"></i></div>
+        <!-- Question Area -->
+        <div class="border-t-2 border-b-2 border-green-800 py-6 mb-6 text-center">
+            <p class="text-xs text-gray-500 mb-2">QUESTION <span id="q-num">1</span>/3</p>
+            <h2 id="question-text"
+                class="text-xl md:text-2xl font-bold text-white bangla leading-relaxed h-20 flex items-center justify-center">
+                <!-- Text Injected Here -->
+            </h2>
         </div>
 
+        <!-- Feedback Area -->
+        <div id="feedback" class="h-8 text-center font-bold text-lg mb-4"></div>
+
+        <!-- Buttons -->
+        <div id="btn-container">
+            <!-- Buttons Injected Here -->
+        </div>
+
+    </div>
+
+    <!-- === SCREEN 3: FINALE === -->
+    <div id="screen-final" class="hidden text-center max-w-lg w-full relative">
+        <div
+            class="border-4 border-yellow-400 p-8 bg-gray-900 relative overflow-hidden rounded-xl shadow-[0_0_50px_rgba(255,215,0,0.4)]">
+
+            <i class="fas fa-check-circle text-6xl text-green-500 mb-4"></i>
+            <h1 class="sci-font text-4xl text-yellow-400 mb-2">TRUTH VERIFIED!</h1>
+            <h2 class="text-2xl text-white font-bold mb-6 bangla">শুভ জন্মদিন রোমানা!</h2>
+
+            <div class="bg-gray-800 p-4 rounded text-left space-y-3 mb-6 border border-gray-700">
+                <p class="text-sm text-gray-300 bangla">
+                    <span class="text-green-400">> Verdict:</span> তুমি দুনিয়ার সবচেয়ে কিউট কিন্তু অলস বউ হতে যাচ্ছো! 😂
+                </p>
+                <p class="text-sm text-gray-300 bangla">
+                    <span class="text-green-400">> Arman's Note:</span> বিয়ের পর জামাইকে জ্বালালে আমাকে কল দিও। আমি টিপস
+                    দিবো।
+                </p>
+            </div>
+
+            <button onclick="location.reload()" class="text-xs text-gray-500 hover:text-white uppercase">Re-take
+                Test</button>
+        </div>
     </div>
 
     <script>
-        const chatScreen = document.getElementById('chat-screen');
-        const typingInd = document.getElementById('typing-indicator');
-        const header = document.getElementById('chat-header');
-        const phoneFrame = document.getElementById('phone-frame');
-
-        // Sounds
-        const sndNotif = document.getElementById('notif-sound');
-        const sndHack = document.getElementById('hack-sound');
-        const sndMusic = document.getElementById('party-music');
-
-        let msgDelay = 1500; // Speed of chat
-
-        const chatScript = [
+        // --- DATA ---
+        const questions = [
             {
-                sender: "Amma (Future MIL)", color: "color-amma",
-                text: "শোন সবাই, কালকে না ওই মেয়েটার জন্মদিন? ওই যে, রোমানা?",
-                delay: 1000
+                text: "বিয়ের পর কি স্বামীর পকেট খালি করবেন?", // Will you empty husband's pocket?
+                options: [
+                    { text: "না, আমি লক্ষ্মী মেয়ে 😇", isLie: true, lieMsg: "মিথ্যাবাদী! (LIAR!) Shopping Alert Found!" },
+                    { text: "অবশ্যই! এটা আমার হক 😎", isLie: false, truthMsg: "সত্য! (Truth) Wallet Danger Detected." }
+                ]
             },
             {
-                sender: "Jamai (Future Husband)", color: "color-jamai",
-                text: "হ্যাঁ আম্মা, কালকেই তো। আমি কি গিফট দিবো ভাবছি...",
-                delay: 2000
+                text: "রান্নায় লবণ কম হলে শাশুড়িকে কি বলবেন?", // If salt is less in cooking...
+                options: [
+                    { text: "সরি মা, ঠিক করে দিচ্ছি 😔", isLie: true, lieMsg: "ডাহা মিথ্যা! (BIG LIE!) Ego Level High." },
+                    { text: "বলব: 'লবণ খাওয়া স্বাস্থ্যের জন্য খারাপ' 😌", isLie: false, truthMsg: "সত্য! (Truth) 100% Chalak Bou." }
+                ]
             },
             {
-                sender: "Nonod (Sister-in-Law)", color: "color-nonod",
-                text: "ভাইয়া, ওকে একটা 'অ্যালার্ম ঘড়ি' গিফট করো! 😂",
-                delay: 2500
-            },
-            {
-                sender: "Nonod (Sister-in-Law)", color: "color-nonod",
-                text: "শুনলাম ভাবি নাকি দুপুর ১২ টার আগে ঘুম থেকে উঠে না!",
-                delay: 1500
-            },
-            {
-                sender: "Amma (Future MIL)", color: "color-amma",
-                text: "ওমা বলো কি! 😱 তাহলে আমার সকালের চা কে বানাবে?",
-                delay: 2000
-            },
-            {
-                sender: "Jamai (Future Husband)", color: "color-jamai",
-                text: "আস্তে বলো... ও শুনলে কিন্তু আমাকে শেষ করে দিবে। 🤐",
-                delay: 2000
-            },
-            {
-                sender: "Amma (Future MIL)", color: "color-amma",
-                text: "রান্না তো মনে হয় কিছুই পারে না। কালকে ওকে দিয়ে ২০ জনের রান্না করাবো। টেস্ট নিবো। 😏",
-                delay: 2500
-            },
-            {
-                sender: "Nonod (Sister-in-Law)", color: "color-nonod",
-                text: "হ্যাঁ মা! আর গিফট হিসেবে একটা 'রান্নার বই' দিও। 🤣",
-                delay: 2000
-            },
-            // THE HACK STARTS HERE
-            { type: 'system', text: "⚠ UNUSUAL ACTIVITY DETECTED" },
-            { type: 'system', text: "⚠ BEST FRIEND PROTOCOL ACTIVATED" },
-            { type: 'hack_intro', delay: 500 },
-            {
-                sender: "Arman (HACKER)", color: "color-arman",
-                text: "OYE!!! STOP RIGHT THERE! 🛑",
-                delay: 1000
-            },
-            {
-                sender: "Arman (HACKER)", color: "color-arman",
-                text: "আমার বেস্ট ফ্রেন্ড এর নামে গসিপ করা চলবে না! 😡",
-                delay: 1500
-            },
-            { type: 'action', text: "Arman removed 'Amma' from the group." },
-            { type: 'action', text: "Arman removed 'Nonod' from the group." },
-            { type: 'action', text: "Arman muted 'Jamai'." },
-            {
-                sender: "Arman (HACKER)", color: "color-arman",
-                text: "রোমানা ঘুমালে ঘুমাক! রান্নাবান্না অর্ডার করা হবে! 🍕",
-                delay: 1500
-            },
-            { type: 'rename', text: "Group Name changed to 'Happy Birthday Romana! 🎉'" },
-            { type: 'finale' } // Triggers confetti
+                text: "দুনিয়ার সেরা বন্ধু কে? (সতর্ক থাকুন)", // Who is the best friend?
+                options: [
+                    { text: "আমার হবু জামাই ❤️", isLie: true, lieMsg: "ERROR 404! Friendship Not Found." },
+                    { text: "আরমান (Arman) 🤝", isLie: false, truthMsg: "CORRECT! System Approved." }
+                ]
+            }
         ];
 
-        function unlockChat() {
-            document.getElementById('screen-lock').style.display = 'none';
-            phoneFrame.classList.remove('blur-reveal');
+        let currentQ = 0;
+        const bpmDisplay = document.getElementById('bpm');
+        const feedback = document.getElementById('feedback');
+        const flash = document.getElementById('flash');
 
-            // Start sequence
-            processScript(0);
+        // Sounds
+        const sndHeart = document.getElementById('heartbeat');
+        const sndTruth = document.getElementById('truth-sound');
+        const sndLie = document.getElementById('lie-sound');
+        const sndMusic = document.getElementById('party-music');
+
+        // --- FUNCTIONS ---
+
+        function startTest() {
+            document.getElementById('screen-intro').style.display = 'none';
+            document.getElementById('screen-test').style.display = 'block';
+
+            // Start Heartbeat Sound & visuals
+            sndHeart.volume = 0.5;
+            sndHeart.play();
+
+            // Randomize BPM visual
+            setInterval(() => {
+                bpmDisplay.innerText = Math.floor(Math.random() * (120 - 80) + 80);
+            }, 500);
+
+            loadQuestion();
         }
 
-        function processScript(index) {
-            if (index >= chatScript.length) return;
+        function loadQuestion() {
+            const data = questions[currentQ];
+            document.getElementById('q-num').innerText = currentQ + 1;
+            document.getElementById('question-text').innerText = data.text;
+            feedback.innerText = "";
+            feedback.className = "h-8 text-center font-bold text-lg mb-4"; // reset class
 
-            const item = chatScript[index];
-            let currentDelay = item.delay || 1500;
+            const container = document.getElementById('btn-container');
+            container.innerHTML = "";
 
-            if (item.type === 'hack_intro') {
-                triggerHackEffect();
-                setTimeout(() => processScript(index + 1), 2000);
-                return;
-            }
-
-            if (item.type === 'finale') {
-                triggerFinale();
-                return;
-            }
-
-            if (item.type === 'rename') {
-                document.querySelector('h2').innerText = "Happy Birthday Romana! 🎉";
-                addSystemMsg(item.text);
-                setTimeout(() => processScript(index + 1), 1000);
-                return;
-            }
-
-            if (item.type === 'system' || item.type === 'action') {
-                addSystemMsg(item.text);
-                setTimeout(() => processScript(index + 1), 1000);
-                return;
-            }
-
-            // Regular Message
-            // Show typing indicator
-            typingInd.innerText = `${item.sender.split(' ')[0]} is typing...`;
-            typingInd.style.opacity = '1';
-
-            setTimeout(() => {
-                typingInd.style.opacity = '0';
-                addMessage(item);
-                sndNotif.currentTime = 0;
-                sndNotif.play().catch(e => { });
-
-                setTimeout(() => processScript(index + 1), 500); // Wait bit before next logic
-            }, currentDelay);
+            data.options.forEach(opt => {
+                const btn = document.createElement('button');
+                btn.className = "cyber-btn bangla";
+                btn.innerText = opt.text;
+                btn.onclick = () => handleAnswer(opt);
+                container.appendChild(btn);
+            });
         }
 
-        function addMessage(item) {
-            const div = document.createElement('div');
-            // Check if it's Arman (Hacker)
-            if (item.color === 'color-arman') {
-                div.className = `msg msg-out border border-red-500 bg-red-50`;
+        function handleAnswer(opt) {
+            if (opt.isLie) {
+                // LIE DETECTED
+                triggerLie(opt.lieMsg);
             } else {
-                div.className = `msg msg-in`;
+                // TRUTH DETECTED
+                triggerTruth(opt.truthMsg);
             }
-
-            div.innerHTML = `
-                <span class="sender-name ${item.color}">${item.sender}</span>
-                ${item.text}
-                <span class="text-[9px] text-gray-400 block text-right mt-1">Now</span>
-            `;
-            chatScreen.appendChild(div);
-            chatScreen.scrollTop = chatScreen.scrollHeight;
         }
 
-        function addSystemMsg(text) {
-            const div = document.createElement('div');
-            div.className = "msg-sys";
-            div.innerHTML = text;
-            chatScreen.appendChild(div);
-            chatScreen.scrollTop = chatScreen.scrollHeight;
-        }
+        function triggerLie(msg) {
+            // Visuals
+            flash.classList.add('active');
+            document.body.classList.add('glitch');
+            feedback.innerText = msg;
+            feedback.className = "h-8 text-center font-bold text-lg mb-4 text-red-500 glitch";
 
-        function triggerHackEffect() {
-            // Shake screen
-            phoneFrame.classList.add('shake');
-            sndHack.play();
+            // Sound
+            sndLie.currentTime = 0;
+            sndLie.play();
 
-            // Invert colors momentarily
-            chatScreen.style.filter = "invert(1)";
+            // Status Light
+            document.getElementById(`light-${currentQ + 1}`).className = "status-light lie";
 
             setTimeout(() => {
-                chatScreen.style.filter = "invert(0)";
-                phoneFrame.classList.remove('shake');
-
-                // Change Theme to Dark/Hacker
-                chatScreen.classList.add('dark-mode-chat');
-                header.style.backgroundColor = "#000000";
-            }, 1000);
+                flash.classList.remove('active');
+                document.body.classList.remove('glitch');
+            }, 300);
         }
 
-        function triggerFinale() {
-            sndMusic.play();
-            fireConfetti();
+        function triggerTruth(msg) {
+            // Visuals
+            feedback.innerText = msg;
+            feedback.className = "h-8 text-center font-bold text-lg mb-4 text-green-500";
 
-            // Add Final Wish Bubble
-            const div = document.createElement('div');
-            div.className = "msg msg-hack w-full animate-bounce mt-8 p-6";
-            div.innerHTML = `
-                <h1 class="text-2xl font-bold mb-2">HAPPY BIRTHDAY BESTIE!</h1>
-                <p class="text-white text-sm">
-                    Don't worry about in-laws, I've handled them. 😎<br>
-                    Enjoy your last single birthday!
-                </p>
-                <p class="text-xs text-gray-500 mt-4">- Hacker Arman</p>
-            `;
-            chatScreen.appendChild(div);
-            chatScreen.scrollTop = chatScreen.scrollHeight;
+            // Sound
+            sndTruth.currentTime = 0;
+            sndTruth.play();
+
+            // Status Light
+            document.getElementById(`light-${currentQ + 1}`).className = "status-light truth";
+
+            // Next Question
+            setTimeout(() => {
+                currentQ++;
+                if (currentQ < questions.length) {
+                    loadQuestion();
+                } else {
+                    finishTest();
+                }
+            }, 2000);
+        }
+
+        function finishTest() {
+            sndHeart.pause();
+            sndMusic.play();
+
+            document.getElementById('screen-test').style.display = 'none';
+            document.getElementById('screen-final').style.display = 'block';
+
+            fireConfetti();
         }
 
         function fireConfetti() {
@@ -473,7 +409,6 @@
                 confetti(Object.assign({}, defaults, { particleCount, origin: { x: random(0.7, 0.9), y: Math.random() - 0.2 } }));
             }, 250);
         }
-
     </script>
 </body>
 
