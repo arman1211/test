@@ -1,0 +1,1045 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Romana's Magical Birthday Journey 🌟</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #000;
+            overflow: hidden;
+            height: 100vh;
+            color: white;
+        }
+
+        /* Sky Background with Gradient */
+        .sky {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            transition: background 1s ease;
+        }
+
+        .sky.intro {
+            background: linear-gradient(to bottom, #0f0c29, #302b63, #24243e);
+        }
+
+        .sky.forest {
+            background: linear-gradient(to bottom, #134e5e, #71b280);
+        }
+
+        .sky.mountain {
+            background: linear-gradient(to bottom, #2c3e50, #bdc3c7);
+        }
+
+        .sky.ocean {
+            background: linear-gradient(to bottom, #1e3c72, #2a5298, #4facfe);
+        }
+
+        .sky.castle {
+            background: linear-gradient(to bottom, #ff6b6b, #ffa500, #ffd700);
+        }
+
+        .sky.finale {
+            background: radial-gradient(circle, #ff6ec4, #7873f5, #4a90e2);
+        }
+
+        /* Stars */
+        .stars-layer {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        .star-particle {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            animation: sparkle 2s infinite;
+        }
+
+        @keyframes sparkle {
+
+            0%,
+            100% {
+                opacity: 0.3;
+                transform: scale(1);
+            }
+
+            50% {
+                opacity: 1;
+                transform: scale(1.3);
+            }
+        }
+
+        /* Main Container */
+        .scene-container {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            overflow-y: auto;
+            z-index: 10;
+        }
+
+        /* Story Text Box */
+        .story-box {
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 20px;
+            padding: 30px;
+            max-width: 500px;
+            width: 100%;
+            margin-bottom: 20px;
+            animation: fadeInUp 0.8s ease;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .story-box h2 {
+            color: #ffd700;
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            text-align: center;
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+        }
+
+        .story-box p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            text-align: center;
+            margin-bottom: 15px;
+        }
+
+        .story-icon {
+            font-size: 4rem;
+            text-align: center;
+            margin-bottom: 20px;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-15px);
+            }
+        }
+
+        /* Choices */
+        .choices {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .choice-btn {
+            background: linear-gradient(135deg, rgba(255, 107, 107, 0.8), rgba(255, 193, 7, 0.8));
+            border: 2px solid rgba(255, 255, 255, 0.5);
+            color: white;
+            padding: 18px 25px;
+            border-radius: 15px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            font-weight: bold;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .choice-btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .choice-btn:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .choice-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(255, 215, 0, 0.5);
+            border-color: #ffd700;
+        }
+
+        .choice-btn:active {
+            transform: translateY(-2px);
+        }
+
+        .choice-btn span {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Character/Avatar */
+        .character {
+            font-size: 5rem;
+            text-align: center;
+            margin-bottom: 20px;
+            animation: bounce 1s ease infinite;
+            filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.3));
+        }
+
+        @keyframes bounce {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        /* Discovery Box */
+        .discovery {
+            background: linear-gradient(135deg, rgba(255, 107, 107, 0.9), rgba(138, 43, 226, 0.9));
+            border: 3px solid #ffd700;
+            border-radius: 20px;
+            padding: 30px;
+            margin-top: 20px;
+            animation: glowPulse 2s ease-in-out infinite;
+        }
+
+        @keyframes glowPulse {
+
+            0%,
+            100% {
+                box-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+            }
+
+            50% {
+                box-shadow: 0 0 40px rgba(255, 215, 0, 0.8);
+            }
+        }
+
+        .discovery h3 {
+            color: #ffd700;
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .discovery p {
+            text-align: center;
+            line-height: 1.6;
+            font-size: 1.05rem;
+        }
+
+        /* Progress Bar */
+        .progress-container {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.6);
+            border-radius: 20px;
+            padding: 10px 20px;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .progress-bar {
+            width: 200px;
+            height: 8px;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 5px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #ffd700, #ff6b6b);
+            width: 0%;
+            transition: width 0.5s ease;
+            box-shadow: 0 0 10px rgba(255, 215, 0, 0.8);
+        }
+
+        .progress-text {
+            text-align: center;
+            font-size: 0.9rem;
+            color: #ffd700;
+        }
+
+        /* Floating Elements */
+        .floating-element {
+            position: fixed;
+            pointer-events: none;
+            animation: floatAround 15s ease-in-out infinite;
+            font-size: 2rem;
+            opacity: 0.6;
+        }
+
+        @keyframes floatAround {
+
+            0%,
+            100% {
+                transform: translate(0, 0) rotate(0deg);
+            }
+
+            25% {
+                transform: translate(100px, -100px) rotate(90deg);
+            }
+
+            50% {
+                transform: translate(50px, 100px) rotate(180deg);
+            }
+
+            75% {
+                transform: translate(-100px, -50px) rotate(270deg);
+            }
+        }
+
+        /* Treasure Chest */
+        .treasure-chest {
+            font-size: 6rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            animation: treasure-glow 2s ease-in-out infinite;
+        }
+
+        @keyframes treasure-glow {
+
+            0%,
+            100% {
+                filter: drop-shadow(0 0 10px #ffd700);
+            }
+
+            50% {
+                filter: drop-shadow(0 0 30px #ffd700);
+            }
+        }
+
+        .treasure-chest:hover {
+            transform: scale(1.1);
+        }
+
+        .treasure-chest:active {
+            transform: scale(0.95);
+        }
+
+        /* Wish Card */
+        .wish-card {
+            background: linear-gradient(135deg, rgba(138, 43, 226, 0.9), rgba(255, 107, 107, 0.9));
+            border: 3px solid #ffd700;
+            border-radius: 20px;
+            padding: 25px;
+            margin: 10px 0;
+            animation: cardFlip 0.6s ease;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        @keyframes cardFlip {
+            0% {
+                transform: rotateY(-90deg);
+                opacity: 0;
+            }
+
+            100% {
+                transform: rotateY(0);
+                opacity: 1;
+            }
+        }
+
+        .wish-card h4 {
+            color: #ffd700;
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+        }
+
+        /* Final Celebration */
+        .firework {
+            position: fixed;
+            pointer-events: none;
+            animation: fireworkExplode 1s ease-out forwards;
+        }
+
+        @keyframes fireworkExplode {
+            0% {
+                transform: translateY(0) scale(0);
+                opacity: 1;
+            }
+
+            100% {
+                transform: translateY(-300px) scale(3);
+                opacity: 0;
+            }
+        }
+
+        /* Balloon Pop */
+        .balloon {
+            font-size: 3rem;
+            position: fixed;
+            bottom: -100px;
+            animation: balloonRise 10s ease-in forwards;
+            cursor: pointer;
+            z-index: 5;
+        }
+
+        @keyframes balloonRise {
+            to {
+                bottom: 120vh;
+            }
+        }
+
+        /* Photo Frame */
+        .photo-frame-special {
+            width: 100%;
+            max-width: 300px;
+            aspect-ratio: 4/5;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border: 5px solid #ffd700;
+            border-radius: 20px;
+            margin: 20px auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+            animation: photoGlow 3s ease-in-out infinite;
+        }
+
+        @keyframes photoGlow {
+
+            0%,
+            100% {
+                box-shadow: 0 20px 50px rgba(255, 215, 0, 0.3);
+            }
+
+            50% {
+                box-shadow: 0 20px 50px rgba(255, 215, 0, 0.6);
+            }
+        }
+
+        .photo-placeholder-special {
+            text-align: center;
+            padding: 20px;
+        }
+
+        .photo-placeholder-special p {
+            font-size: 1rem;
+            margin-top: 10px;
+        }
+
+        /* Continue Button */
+        .continue-btn {
+            background: linear-gradient(135deg, #ffd700, #ff6b6b);
+            border: none;
+            color: white;
+            padding: 18px 40px;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 20px rgba(255, 215, 0, 0.4);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .continue-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(255, 215, 0, 0.6);
+        }
+
+        .continue-btn:active {
+            transform: translateY(0);
+        }
+
+        /* Message Scroll */
+        .message-scroll {
+            background: rgba(255, 248, 220, 0.95);
+            color: #333;
+            padding: 30px;
+            border-radius: 15px;
+            border: 3px solid #8B4513;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            max-width: 450px;
+            margin: 20px auto;
+            font-family: 'Courier New', monospace;
+            animation: unfurl 1s ease;
+        }
+
+        @keyframes unfurl {
+            from {
+                transform: scaleY(0);
+                opacity: 0;
+            }
+
+            to {
+                transform: scaleY(1);
+                opacity: 1;
+            }
+        }
+
+        .message-scroll p {
+            color: #333;
+            line-height: 1.8;
+            margin-bottom: 15px;
+            text-align: left;
+        }
+
+        .signature {
+            text-align: right;
+            font-style: italic;
+            color: #8B4513;
+            margin-top: 20px;
+            font-weight: bold;
+        }
+
+        /* Loading Shimmer */
+        .shimmer {
+            animation: shimmer 2s infinite;
+        }
+
+        @keyframes shimmer {
+            0% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.5;
+            }
+
+            100% {
+                opacity: 1;
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 480px) {
+            .story-box {
+                padding: 20px;
+            }
+
+            .story-box h2 {
+                font-size: 1.5rem;
+            }
+
+            .story-box p {
+                font-size: 1rem;
+            }
+
+            .character {
+                font-size: 4rem;
+            }
+
+            .story-icon {
+                font-size: 3rem;
+            }
+
+            .progress-container {
+                padding: 8px 15px;
+            }
+
+            .progress-bar {
+                width: 150px;
+            }
+        }
+
+        /* Scene-specific elements */
+        .forest-tree {
+            position: fixed;
+            bottom: 0;
+            font-size: 4rem;
+            opacity: 0.3;
+            animation: sway 4s ease-in-out infinite;
+        }
+
+        @keyframes sway {
+
+            0%,
+            100% {
+                transform: rotate(-5deg);
+            }
+
+            50% {
+                transform: rotate(5deg);
+            }
+        }
+
+        .mountain-peak {
+            position: fixed;
+            bottom: 0;
+            width: 0;
+            height: 0;
+            border-left: 150px solid transparent;
+            border-right: 150px solid transparent;
+            border-bottom: 200px solid rgba(255, 255, 255, 0.2);
+            opacity: 0.5;
+        }
+
+        .ocean-wave {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100px;
+            background: radial-gradient(ellipse at center, rgba(255, 255, 255, 0.3) 0%, transparent 70%);
+            animation: wave 3s ease-in-out infinite;
+        }
+
+        @keyframes wave {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Sky Background -->
+    <div class="sky intro" id="sky"></div>
+
+    <!-- Stars Layer -->
+    <div class="stars-layer" id="starsLayer"></div>
+
+    <!-- Floating Elements Container -->
+    <div id="floatingElements"></div>
+
+    <!-- Progress Bar -->
+    <div class="progress-container" id="progressContainer" style="display: none;">
+        <div class="progress-bar">
+            <div class="progress-fill" id="progressFill"></div>
+        </div>
+        <div class="progress-text" id="progressText">Journey: 0%</div>
+    </div>
+
+    <!-- Scene Container -->
+    <div class="scene-container" id="sceneContainer"></div>
+
+    <script>
+        // Game State
+        let currentScene = 0;
+        let playerName = "Romana";
+        let discoveries = [];
+        const totalScenes = 7;
+
+        // Create Stars
+        function createStars(count = 50) {
+            const starsLayer = document.getElementById('starsLayer');
+            starsLayer.innerHTML = '';
+
+            for (let i = 0; i < count; i++) {
+                const star = document.createElement('div');
+                star.className = 'star-particle';
+                star.style.width = star.style.height = (Math.random() * 3 + 1) + 'px';
+                star.style.left = Math.random() * 100 + '%';
+                star.style.top = Math.random() * 100 + '%';
+                star.style.animationDelay = Math.random() * 2 + 's';
+                starsLayer.appendChild(star);
+            }
+        }
+        createStars();
+
+        // Update Progress
+        function updateProgress() {
+            const progress = (currentScene / totalScenes) * 100;
+            document.getElementById('progressFill').style.width = progress + '%';
+            document.getElementById('progressText').textContent = `Journey: ${Math.round(progress)}%`;
+        }
+
+        // Create Magical Particles
+        function createMagicalParticles(emoji, count = 20) {
+            for (let i = 0; i < count; i++) {
+                setTimeout(() => {
+                    const particle = document.createElement('div');
+                    particle.textContent = emoji;
+                    particle.style.position = 'fixed';
+                    particle.style.left = Math.random() * window.innerWidth + 'px';
+                    particle.style.top = Math.random() * window.innerHeight + 'px';
+                    particle.style.fontSize = (Math.random() * 30 + 20) + 'px';
+                    particle.style.pointerEvents = 'none';
+                    particle.style.zIndex = '1000';
+                    particle.style.animation = 'fireworkExplode 1.5s ease-out forwards';
+                    document.body.appendChild(particle);
+
+                    setTimeout(() => particle.remove(), 1500);
+                }, i * 50);
+            }
+        }
+
+        // Scenes
+        const scenes = [
+            // Scene 0: Intro
+            {
+                sky: 'intro',
+                render: () => `
+                    <div class="story-box">
+                        <div class="story-icon">✨</div>
+                        <h2>A Magical Journey Begins...</h2>
+                        <p>On a special night, when the stars aligned just right...</p>
+                        <p>A magical portal opened for someone extraordinary...</p>
+                        <p><strong>${playerName} Afroz</strong></p>
+                        <p>Are you ready to embark on the most magical birthday adventure ever?</p>
+                        <div class="choices">
+                            <button class="choice-btn" onclick="nextScene()">
+                                <span>✨ Begin the Journey ✨</span>
+                            </button>
+                        </div>
+                    </div>
+                `
+            },
+
+            // Scene 1: The Enchanted Forest
+            {
+                sky: 'forest',
+                render: () => `
+                    <div class="story-box">
+                        <div class="character">🧚‍♀️</div>
+                        <h2>The Enchanted Forest</h2>
+                        <p>You step through the portal and find yourself in a mystical forest glowing with magical lights.</p>
+                        <p>A fairy appears before you with a gentle smile...</p>
+                        <p><em>"Welcome, ${playerName}! I have been waiting for you. Choose a path to discover your first birthday blessing..."</em></p>
+                        <div class="choices">
+                            <button class="choice-btn" onclick="discover('forest', 0)">
+                                <span>🌸 Follow the flower path</span>
+                            </button>
+                            <button class="choice-btn" onclick="discover('forest', 1)">
+                                <span>⭐ Follow the starlight trail</span>
+                            </button>
+                        </div>
+                    </div>
+                `,
+                discoveries: [
+                    {
+                        title: "🌸 Garden of Joy",
+                        message: "You discover a garden where every flower blooms with happiness! The fairy whispers: 'May your life be filled with endless joy and beautiful moments that make your heart bloom!'"
+                    },
+                    {
+                        title: "⭐ Starlight Wisdom",
+                        message: "The stars reveal ancient wisdom! The fairy says: 'May you always find guidance in the darkest moments, and may your path be illuminated with wisdom and clarity!'"
+                    }
+                ]
+            },
+
+            // Scene 2: The Mystic Mountain
+            {
+                sky: 'mountain',
+                render: () => `
+                    <div class="story-box">
+                        <div class="character">🦅</div>
+                        <h2>The Mystic Mountain Peak</h2>
+                        <p>You climb higher and reach a majestic mountain where an ancient eagle awaits...</p>
+                        <p><em>"${playerName}, from this peak you can see all possibilities. What do you seek?"</em></p>
+                        <div class="choices">
+                            <button class="choice-btn" onclick="discover('mountain', 0)">
+                                <span>💪 The path of strength</span>
+                            </button>
+                            <button class="choice-btn" onclick="discover('mountain', 1)">
+                                <span>❤️ The path of love</span>
+                            </button>
+                        </div>
+                    </div>
+                `,
+                discoveries: [
+                    {
+                        title: "💪 Mountain of Courage",
+                        message: "The eagle shares the secret of inner strength! 'May you face every challenge with courage, knowing that you have the power to overcome anything. Your strength inspires everyone around you!'"
+                    },
+                    {
+                        title: "❤️ Valley of Love",
+                        message: "You find a valley where love echoes forever! The eagle declares: 'May your heart always be filled with love, and may you be surrounded by people who cherish you as much as you deserve!'"
+                    }
+                ]
+            },
+
+            // Scene 3: The Crystal Ocean
+            {
+                sky: 'ocean',
+                render: () => `
+                    <div class="story-box">
+                        <div class="character">🧜‍♀️</div>
+                        <h2>The Crystal Ocean</h2>
+                        <p>You arrive at a shimmering ocean where a mermaid rises from the waves...</p>
+                        <p><em>"${playerName}, dive deep or sail far—the ocean holds secrets for you!"</em></p>
+                        <div class="choices">
+                            <button class="choice-btn" onclick="discover('ocean', 0)">
+                                <span>🐚 Dive into the depths</span>
+                            </button>
+                            <button class="choice-btn" onclick="discover('ocean', 1)">
+                                <span>🌊 Sail to the horizon</span>
+                            </button>
+                        </div>
+                    </div>
+                `,
+                discoveries: [
+                    {
+                        title: "🐚 Treasure of Dreams",
+                        message: "You discover a chest filled with dream pearls! The mermaid sings: 'May all your dreams come true this year! Every pearl represents a wish that will manifest in the most beautiful way!'"
+                    },
+                    {
+                        title: "🌊 Waves of Adventure",
+                        message: "You sail into amazing adventures! The mermaid calls out: 'May this year bring you incredible adventures, exciting opportunities, and experiences that take your breath away!'"
+                    }
+                ]
+            },
+
+            // Scene 4: The Golden Castle
+            {
+                sky: 'castle',
+                render: () => `
+                    <div class="story-box">
+                        <div class="treasure-chest" onclick="openTreasure()">📦</div>
+                        <h2>The Golden Castle</h2>
+                        <p>You've reached a magnificent golden castle floating in the sunset sky!</p>
+                        <p>A mysterious treasure chest sits before you, glowing with magical energy...</p>
+                        <p><em>Tap the chest to reveal your special birthday treasure!</em></p>
+                    </div>
+                `
+            },
+
+            // Scene 5: Memory Lane
+            {
+                sky: 'finale',
+                render: () => `
+                    <div class="story-box">
+                        <div class="story-icon">📸</div>
+                        <h2>Memory Lane</h2>
+                        <p>As you walk through a corridor of memories, you see moments from your journey together...</p>
+                        <div class="photo-frame-special">
+                            <div class="photo-placeholder-special">
+                                <div style="font-size: 3rem;">📷</div>
+                                <p>Your beautiful face here</p>
+                                <p style="font-size: 0.85rem; opacity: 0.8;">Add your photo to this magical frame</p>
+                            </div>
+                        </div>
+                        <p>Every moment with you has been magical. Every laugh, every conversation, every memory is a treasure I hold dear.</p>
+                        <button class="continue-btn" onclick="nextScene()">Continue →</button>
+                    </div>
+                `
+            },
+
+            // Scene 6: The Letter
+            {
+                sky: 'finale',
+                render: () => `
+                    <div class="story-box">
+                        <div class="story-icon">💌</div>
+                        <h2>A Message From Your Best Friend</h2>
+                        <div class="message-scroll">
+                            <p>Dear Romana,</p>
+                            <p>As this magical journey comes to an end, I want you to know something very important...</p>
+                            <p>You are absolutely incredible. Your kindness, your strength, your beautiful soul—everything about you makes the world a better place.</p>
+                            <p>On this special day, I want to thank you for being you. For your friendship, your laughter, your support, and for all the amazing moments we've shared.</p>
+                            <p>This year ahead holds so many wonderful things for you. I can feel it in the magic of this journey. Your dreams will come true, your heart will be full, and happiness will follow you everywhere.</p>
+                            <p>Never forget how special you are, how loved you are, and how much you mean to everyone lucky enough to know you.</p>
+                            <p>Happy Birthday, my dear friend. May this year be your most magical one yet!</p>
+                            <p class="signature">With all my love,<br>Your Best Friend Forever 💕</p>
+                        </div>
+                        <button class="continue-btn" onclick="nextScene()">Complete Journey →</button>
+                    </div>
+                `
+            },
+
+            // Scene 7: Grand Finale
+            {
+                sky: 'finale',
+                render: () => `
+                    <div class="story-box">
+                        <div class="character">🎂</div>
+                        <h2>✨ Happy Birthday Romana! ✨</h2>
+                        <p style="font-size: 1.3rem; color: #ffd700;">The journey is complete, but your adventure is just beginning!</p>
+                        ${discoveries.map(d => `
+                            <div class="wish-card">
+                                <h4>${d.title}</h4>
+                                <p>${d.message}</p>
+                            </div>
+                        `).join('')}
+                        <p style="margin-top: 30px; font-size: 1.2rem;">May all these blessings come true for you! 🌟</p>
+                        <button class="continue-btn" onclick="celebrate()">🎉 Celebrate! 🎉</button>
+                    </div>
+                `
+            }
+        ];
+
+        // Render Scene
+        function renderScene() {
+            const scene = scenes[currentScene];
+            document.getElementById('sky').className = `sky ${scene.sky}`;
+            document.getElementById('sceneContainer').innerHTML = scene.render();
+
+            if (currentScene > 0) {
+                document.getElementById('progressContainer').style.display = 'block';
+                updateProgress();
+            }
+
+            // Add scene-specific elements
+            addSceneElements(scene.sky);
+
+            // Scroll to top
+            document.getElementById('sceneContainer').scrollTop = 0;
+        }
+
+        // Add Scene Elements
+        function addSceneElements(skyType) {
+            const floatingElements = document.getElementById('floatingElements');
+            floatingElements.innerHTML = '';
+
+            const elements = {
+                forest: ['🌸', '🦋', '🍄'],
+                mountain: ['🦅', '⛰️', '☁️'],
+                ocean: ['🐚', '🌊', '🐠'],
+                castle: ['⭐', '👑', '✨'],
+                finale: ['🎉', '🎊', '💖', '🌟']
+            };
+
+            const emojis = elements[skyType] || [];
+
+            for (let i = 0; i < 3; i++) {
+                const elem = document.createElement('div');
+                elem.className = 'floating-element';
+                elem.textContent = emojis[i % emojis.length];
+                elem.style.left = (Math.random() * 80 + 10) + '%';
+                elem.style.top = (Math.random() * 80 + 10) + '%';
+                elem.style.animationDelay = (i * 2) + 's';
+                floatingElements.appendChild(elem);
+            }
+        }
+
+        // Discover Path
+        function discover(location, choice) {
+            const scene = scenes[currentScene];
+            const discovery = scene.discoveries[choice];
+            discoveries.push(discovery);
+
+            createMagicalParticles('✨', 25);
+
+            const container = document.getElementById('sceneContainer');
+            container.innerHTML = `
+                <div class="story-box">
+                    <div class="discovery">
+                        <h3>${discovery.title}</h3>
+                        <p>${discovery.message}</p>
+                    </div>
+                    <button class="continue-btn" onclick="nextScene()">Continue Journey →</button>
+                </div>
+            `;
+        }
+
+        // Open Treasure
+        function openTreasure() {
+            createMagicalParticles('💎', 30);
+            createMagicalParticles('🌟', 20);
+
+            setTimeout(() => {
+                const container = document.getElementById('sceneContainer');
+                container.innerHTML = `
+                    <div class="story-box">
+                        <div class="story-icon">🎁</div>
+                        <h2>Your Birthday Treasure!</h2>
+                        <div class="discovery">
+                            <h3>💝 The Ultimate Gift</h3>
+                            <p>Inside the treasure chest, you find something priceless: A year filled with unlimited happiness, success in everything you do, health and strength, amazing adventures, dreams coming true, and endless love from everyone who knows you!</p>
+                            <p>This magical treasure will follow you throughout the year, bringing blessings to every day! 🌟</p>
+                        </div>
+                        <button class="continue-btn" onclick="nextScene()">Continue →</button>
+                    </div>
+                `;
+            }, 1000);
+        }
+
+        // Next Scene
+        function nextScene() {
+            createMagicalParticles('⭐', 15);
+            currentScene++;
+
+            if (currentScene < scenes.length) {
+                setTimeout(() => renderScene(), 300);
+            }
+        }
+
+        // Final Celebration
+        function celebrate() {
+            // Create massive celebration
+            for (let i = 0; i < 50; i++) {
+                setTimeout(() => {
+                    const firework = document.createElement('div');
+                    firework.className = 'firework';
+                    firework.textContent = ['🎆', '🎇', '✨', '💫', '⭐'][Math.floor(Math.random() * 5)];
+                    firework.style.left = Math.random() * window.innerWidth + 'px';
+                    firework.style.top = Math.random() * window.innerHeight + 'px';
+                    firework.style.fontSize = (Math.random() * 30 + 30) + 'px';
+                    document.body.appendChild(firework);
+
+                    setTimeout(() => firework.remove(), 1000);
+                }, i * 100);
+            }
+
+            // Create rising balloons
+            for (let i = 0; i < 20; i++) {
+                setTimeout(() => {
+                    const balloon = document.createElement('div');
+                    balloon.className = 'balloon';
+                    balloon.textContent = ['🎈', '🎉', '🎊'][Math.floor(Math.random() * 3)];
+                    balloon.style.left = Math.random() * (window.innerWidth - 50) + 'px';
+                    balloon.style.animationDuration = (Math.random() * 5 + 8) + 's';
+                    document.body.appendChild(balloon);
+
+                    setTimeout(() => balloon.remove(), 10000);
+                }, i * 300);
+            }
+
+            setTimeout(() => {
+                alert('🎉 Happy Birthday Romana! 🎉\n\nThank you for completing this magical journey!\nMay all these blessings come true for you! 💖');
+            }, 2000);
+        }
+
+        // Start the journey
+        renderScene();
+    </script>
+</body>
+
+</html>

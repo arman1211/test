@@ -1,0 +1,1363 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Special Gift for Romana 🎁</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 50%, #7e22ce 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Stars Background */
+        .stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        .star {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: white;
+            border-radius: 50%;
+            animation: twinkle 3s infinite;
+        }
+
+        @keyframes twinkle {
+
+            0%,
+            100% {
+                opacity: 0.3;
+            }
+
+            50% {
+                opacity: 1;
+            }
+        }
+
+        /* Welcome Screen */
+        .welcome-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 10000;
+            transition: opacity 0.5s ease, transform 0.5s ease;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .welcome-screen.hidden {
+            opacity: 0;
+            transform: scale(0.8);
+            pointer-events: none;
+        }
+
+        .welcome-icon {
+            font-size: 100px;
+            animation: bounce 2s infinite;
+            margin-bottom: 30px;
+        }
+
+        @keyframes bounce {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+
+        .welcome-screen h1 {
+            font-size: 2.5rem;
+            color: white;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .welcome-screen p {
+            font-size: 1.3rem;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 40px;
+            max-width: 400px;
+            line-height: 1.6;
+        }
+
+        .start-btn {
+            background: white;
+            color: #667eea;
+            padding: 20px 50px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.3rem;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .start-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        .start-btn:active {
+            transform: scale(0.95);
+        }
+
+        /* Main Container */
+        .container {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            position: relative;
+        }
+
+        /* Gift Box */
+        .gift-box-container {
+            position: relative;
+            perspective: 1000px;
+            cursor: pointer;
+        }
+
+        .gift-box {
+            width: 300px;
+            height: 300px;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.6s ease;
+        }
+
+        .gift-box.shake {
+            animation: shake 0.5s ease;
+        }
+
+        @keyframes shake {
+
+            0%,
+            100% {
+                transform: translateX(0);
+            }
+
+            25% {
+                transform: translateX(-10px) rotate(-5deg);
+            }
+
+            75% {
+                transform: translateX(10px) rotate(5deg);
+            }
+        }
+
+        .box-body {
+            width: 280px;
+            height: 280px;
+            background: linear-gradient(135deg, #ff6b6b 0%, #ff8787 100%);
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .box-body::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 40px;
+            background: #ffd700;
+            transform: translateY(-50%);
+        }
+
+        .box-body::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 40px;
+            background: #ffd700;
+            transform: translateX(-50%);
+        }
+
+        .box-lid {
+            width: 300px;
+            height: 80px;
+            background: linear-gradient(135deg, #ff5252 0%, #ff6b6b 100%);
+            border-radius: 20px 20px 5px 5px;
+            position: absolute;
+            top: -30px;
+            left: -10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            transform-origin: bottom;
+            transition: transform 0.8s ease;
+            z-index: 10;
+        }
+
+        .box-lid::before {
+            content: '';
+            position: absolute;
+            top: 15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50px;
+            height: 25px;
+            background: #ffd700;
+            border-radius: 25px 25px 0 0;
+        }
+
+        .gift-box-container.opened .box-lid {
+            transform: rotateX(-120deg) translateY(-50px);
+        }
+
+        .instruction-text {
+            position: absolute;
+            bottom: -60px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: white;
+            font-size: 1.2rem;
+            white-space: nowrap;
+            animation: pulse 2s infinite;
+            text-align: center;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                opacity: 0.6;
+            }
+
+            50% {
+                opacity: 1;
+            }
+        }
+
+        .gift-box-container.opened .instruction-text {
+            display: none;
+        }
+
+        /* Surprises Container */
+        .surprises-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: none;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            z-index: 100;
+            padding: 20px;
+            overflow-y: auto;
+        }
+
+        .surprises-container.active {
+            display: block;
+            opacity: 1;
+        }
+
+        .surprises-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            max-width: 600px;
+            margin: 80px auto 40px;
+        }
+
+        .surprise-item {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 20px;
+            padding: 30px 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            animation: popIn 0.5s ease backwards;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .surprise-item:nth-child(1) {
+            animation-delay: 0.1s;
+        }
+
+        .surprise-item:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .surprise-item:nth-child(3) {
+            animation-delay: 0.3s;
+        }
+
+        .surprise-item:nth-child(4) {
+            animation-delay: 0.4s;
+        }
+
+        .surprise-item:nth-child(5) {
+            animation-delay: 0.5s;
+        }
+
+        .surprise-item:nth-child(6) {
+            animation-delay: 0.6s;
+        }
+
+        @keyframes popIn {
+            from {
+                opacity: 0;
+                transform: scale(0.5) translateY(50px);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+
+        .surprise-item:hover {
+            transform: translateY(-10px) scale(1.05);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+            background: rgba(255, 255, 255, 0.25);
+        }
+
+        .surprise-item:active {
+            transform: scale(0.95);
+        }
+
+        .surprise-icon {
+            font-size: 3.5rem;
+            margin-bottom: 15px;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        .surprise-title {
+            color: white;
+            font-size: 1.1rem;
+            font-weight: bold;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+        }
+
+        .surprises-title {
+            text-align: center;
+            color: white;
+            font-size: 2rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .surprises-subtitle {
+            text-align: center;
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+        }
+
+        /* Modal */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 10000;
+            padding: 20px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .modal-content {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 30px;
+            padding: 40px 30px;
+            max-width: 500px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            animation: modalSlideIn 0.4s ease;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+        }
+
+        @keyframes modalSlideIn {
+            from {
+                transform: translateY(100px) scale(0.9);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0) scale(1);
+                opacity: 1;
+            }
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .close-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: rotate(90deg);
+        }
+
+        .modal-icon {
+            font-size: 4rem;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .modal-title {
+            color: white;
+            font-size: 2rem;
+            text-align: center;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .modal-text {
+            color: white;
+            font-size: 1.1rem;
+            line-height: 1.8;
+            text-align: center;
+            margin-bottom: 15px;
+        }
+
+        /* Letter Content */
+        .letter-content {
+            background: rgba(255, 255, 255, 0.95);
+            color: #333;
+            padding: 30px;
+            border-radius: 15px;
+            margin-top: 20px;
+            text-align: left;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .letter-content p {
+            margin-bottom: 15px;
+            line-height: 1.8;
+        }
+
+        .letter-signature {
+            text-align: right;
+            font-style: italic;
+            margin-top: 30px;
+            color: #667eea;
+            font-weight: bold;
+        }
+
+        /* Photo Gallery */
+        .photo-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .photo-placeholder {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 15px;
+            padding: 40px 20px;
+            text-align: center;
+            border: 2px dashed rgba(255, 255, 255, 0.4);
+            color: white;
+        }
+
+        .photo-placeholder .icon {
+            font-size: 3rem;
+            margin-bottom: 10px;
+        }
+
+        /* Wishes List */
+        .wishes-list {
+            margin-top: 20px;
+        }
+
+        .wish-item {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 15px;
+            border-left: 4px solid #ffd700;
+        }
+
+        .wish-item h4 {
+            color: #ffd700;
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+        }
+
+        /* Quiz Game */
+        .quiz-container {
+            margin-top: 20px;
+        }
+
+        .question {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
+            display: none;
+        }
+
+        .question.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        .question h3 {
+            color: #ffd700;
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+        }
+
+        .quiz-options {
+            display: grid;
+            gap: 10px;
+        }
+
+        .quiz-option {
+            background: rgba(255, 255, 255, 0.3);
+            border: 2px solid rgba(255, 255, 255, 0.4);
+            border-radius: 10px;
+            padding: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: white;
+            text-align: center;
+        }
+
+        .quiz-option:hover {
+            background: rgba(255, 255, 255, 0.4);
+            transform: translateX(5px);
+        }
+
+        .quiz-option.correct {
+            background: #4CAF50;
+            border-color: #4CAF50;
+            animation: correctAnswer 0.5s ease;
+        }
+
+        .quiz-option.wrong {
+            background: #f44336;
+            border-color: #f44336;
+            animation: shake 0.5s ease;
+        }
+
+        @keyframes correctAnswer {
+
+            0%,
+            100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.05);
+            }
+        }
+
+        .quiz-result {
+            text-align: center;
+            margin-top: 20px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 15px;
+            display: none;
+        }
+
+        .quiz-result.show {
+            display: block;
+        }
+
+        .quiz-result h3 {
+            color: #ffd700;
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+
+        /* Memory Cards Game */
+        .memory-game {
+            margin-top: 20px;
+        }
+
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .memory-card {
+            aspect-ratio: 1;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            position: relative;
+            transform-style: preserve-3d;
+        }
+
+        .memory-card.flipped {
+            transform: rotateY(180deg);
+        }
+
+        .memory-card.matched {
+            background: rgba(76, 175, 80, 0.5);
+            cursor: default;
+        }
+
+        .card-front,
+        .card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 10px;
+            backface-visibility: hidden;
+        }
+
+        .card-back {
+            transform: rotateY(180deg);
+        }
+
+        .game-stats {
+            text-align: center;
+            color: white;
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+        }
+
+        /* Countdown Timer */
+        .countdown-display {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .time-unit {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 15px;
+            padding: 20px;
+            margin: 10px;
+            min-width: 100px;
+        }
+
+        .time-number {
+            font-size: 3rem;
+            font-weight: bold;
+            color: #ffd700;
+            display: block;
+        }
+
+        .time-label {
+            font-size: 0.9rem;
+            color: white;
+            text-transform: uppercase;
+            margin-top: 5px;
+        }
+
+        /* Fortune Cookie */
+        .fortune-cookie {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .cookie-emoji {
+            font-size: 5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+
+        .cookie-emoji:hover {
+            transform: scale(1.1) rotate(10deg);
+        }
+
+        .cookie-emoji:active {
+            animation: crack 0.5s ease;
+        }
+
+        @keyframes crack {
+
+            0%,
+            100% {
+                transform: rotate(0deg);
+            }
+
+            25% {
+                transform: rotate(-15deg);
+            }
+
+            75% {
+                transform: rotate(15deg);
+            }
+        }
+
+        .fortune-text {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 15px;
+            padding: 20px;
+            margin-top: 20px;
+            display: none;
+            animation: slideDown 0.5s ease;
+        }
+
+        .fortune-text.show {
+            display: block;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fortune-text h3 {
+            color: #ffd700;
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+        }
+
+        .fortune-text p {
+            color: white;
+            font-size: 1.2rem;
+            line-height: 1.6;
+        }
+
+        /* Particles Effect */
+        .particle {
+            position: fixed;
+            pointer-events: none;
+            animation: particleFall 3s ease-out forwards;
+        }
+
+        @keyframes particleFall {
+            from {
+                transform: translateY(0) rotate(0deg);
+                opacity: 1;
+            }
+
+            to {
+                transform: translateY(1000px) rotate(720deg);
+                opacity: 0;
+            }
+        }
+
+        /* Back Button */
+        .back-btn {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            padding: 12px 25px;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+            font-weight: bold;
+            z-index: 200;
+            display: none;
+        }
+
+        .back-btn.show {
+            display: block;
+        }
+
+        .back-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateX(-5px);
+        }
+
+        /* Responsive */
+        @media (max-width: 480px) {
+            .surprises-grid {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+
+            .gift-box {
+                width: 250px;
+                height: 250px;
+            }
+
+            .box-body {
+                width: 230px;
+                height: 230px;
+            }
+
+            .box-lid {
+                width: 250px;
+            }
+
+            .surprise-icon {
+                font-size: 3rem;
+            }
+
+            .time-unit {
+                min-width: 80px;
+                padding: 15px;
+            }
+
+            .time-number {
+                font-size: 2.5rem;
+            }
+
+            .cards-grid {
+                gap: 8px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Stars Background -->
+    <div class="stars" id="stars"></div>
+
+    <!-- Welcome Screen -->
+    <div class="welcome-screen" id="welcomeScreen">
+        <div class="welcome-icon">🎁</div>
+        <h1>Hey Romana! 💝</h1>
+        <p>I have a very special surprise for you! Are you ready to see what's inside?</p>
+        <button class="start-btn" onclick="startExperience()">Open Your Gift</button>
+    </div>
+
+    <!-- Main Container -->
+    <div class="container" id="mainContainer" style="display: none;">
+        <div class="gift-box-container" id="giftBox" onclick="openGiftBox()">
+            <div class="gift-box" id="box">
+                <div class="box-lid"></div>
+                <div class="box-body"></div>
+            </div>
+            <div class="instruction-text">👆 Tap to Open!</div>
+        </div>
+    </div>
+
+    <!-- Back Button -->
+    <button class="back-btn" id="backBtn" onclick="goBack()">← Back to Gifts</button>
+
+    <!-- Surprises Container -->
+    <div class="surprises-container" id="surprisesContainer">
+        <h2 class="surprises-title">🎉 Pick Your Surprises! 🎉</h2>
+        <p class="surprises-subtitle">Tap on any gift to reveal your surprise</p>
+
+        <div class="surprises-grid">
+            <div class="surprise-item" onclick="showSurprise('letter')">
+                <div class="surprise-icon">💌</div>
+                <div class="surprise-title">Love Letter</div>
+            </div>
+
+            <div class="surprise-item" onclick="showSurprise('memories')">
+                <div class="surprise-icon">📸</div>
+                <div class="surprise-title">Memories</div>
+            </div>
+
+            <div class="surprise-item" onclick="showSurprise('wishes')">
+                <div class="surprise-icon">🌟</div>
+                <div class="surprise-title">Birthday Wishes</div>
+            </div>
+
+            <div class="surprise-item" onclick="showSurprise('quiz')">
+                <div class="surprise-icon">🎮</div>
+                <div class="surprise-title">Fun Quiz</div>
+            </div>
+
+            <div class="surprise-item" onclick="showSurprise('memory-game')">
+                <div class="surprise-icon">🎴</div>
+                <div class="surprise-title">Memory Game</div>
+            </div>
+
+            <div class="surprise-item" onclick="showSurprise('fortune')">
+                <div class="surprise-icon">🥠</div>
+                <div class="surprise-title">Fortune Cookie</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal" id="modal">
+        <div class="modal-content" id="modalContent">
+            <button class="close-btn" onclick="closeModal()">×</button>
+            <div id="modalBody"></div>
+        </div>
+    </div>
+
+    <script>
+        // Create Stars
+        function createStars() {
+            const starsContainer = document.getElementById('stars');
+            for (let i = 0; i < 100; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                star.style.left = Math.random() * 100 + '%';
+                star.style.top = Math.random() * 100 + '%';
+                star.style.animationDelay = Math.random() * 3 + 's';
+                starsContainer.appendChild(star);
+            }
+        }
+        createStars();
+
+        // Start Experience
+        function startExperience() {
+            document.getElementById('welcomeScreen').classList.add('hidden');
+            setTimeout(() => {
+                document.getElementById('mainContainer').style.display = 'flex';
+                createParticles('🎉', 20);
+            }, 500);
+        }
+
+        // Open Gift Box
+        function openGiftBox() {
+            const giftBox = document.getElementById('giftBox');
+            const box = document.getElementById('box');
+
+            box.classList.add('shake');
+            setTimeout(() => {
+                box.classList.remove('shake');
+                giftBox.classList.add('opened');
+                createParticles('🎊', 30);
+
+                setTimeout(() => {
+                    document.getElementById('mainContainer').style.display = 'none';
+                    document.getElementById('surprisesContainer').classList.add('active');
+                    document.getElementById('backBtn').classList.add('show');
+                }, 1000);
+            }, 500);
+        }
+
+        // Create Particles
+        function createParticles(emoji, count) {
+            for (let i = 0; i < count; i++) {
+                setTimeout(() => {
+                    const particle = document.createElement('div');
+                    particle.className = 'particle';
+                    particle.textContent = emoji;
+                    particle.style.left = Math.random() * window.innerWidth + 'px';
+                    particle.style.top = '-50px';
+                    particle.style.fontSize = (Math.random() * 20 + 20) + 'px';
+                    document.body.appendChild(particle);
+
+                    setTimeout(() => particle.remove(), 3000);
+                }, i * 100);
+            }
+        }
+
+        // Show Surprise
+        function showSurprise(type) {
+            const modal = document.getElementById('modal');
+            const modalBody = document.getElementById('modalBody');
+
+            createParticles('✨', 15);
+
+            switch (type) {
+                case 'letter':
+                    modalBody.innerHTML = `
+                        <div class="modal-icon">💌</div>
+                        <h2 class="modal-title">A Letter Just For You</h2>
+                        <div class="letter-content">
+                            <p>Dear Romana,</p>
+                            <p>Happy Birthday to one of the most amazing people I know! On this special day, I want you to know how much you mean to me.</p>
+                            <p>Your kindness, your smile, and your beautiful heart make every day brighter. You have this incredible ability to make everyone around you feel special and loved.</p>
+                            <p>I'm so grateful for all the memories we've shared - the laughter, the adventures, the deep conversations, and even the silly moments. Every single one is precious to me.</p>
+                            <p>As you celebrate another year of life, I hope you know that you're loved beyond measure. May this year bring you everything your heart desires and more!</p>
+                            <p>Thank you for being YOU - for your friendship, your support, and for making life so much more wonderful just by being in it.</p>
+                            <p>Here's to you, to us, and to many more beautiful years ahead!</p>
+                            <p class="letter-signature">With all my love,<br>Your Best Friend Forever 💕</p>
+                        </div>
+                    `;
+                    break;
+
+                case 'memories':
+                    modalBody.innerHTML = `
+                        <div class="modal-icon">📸</div>
+                        <h2 class="modal-title">Our Beautiful Memories</h2>
+                        <p class="modal-text">These are some of my favorite moments with you!</p>
+                        <div class="photo-grid">
+                            <div class="photo-placeholder">
+                                <div class="icon">📷</div>
+                                <p>Add your photos here!</p>
+                                <p style="font-size: 0.9rem; margin-top: 10px;">Replace this with actual photos of you two together</p>
+                            </div>
+                            <div class="photo-placeholder">
+                                <div class="icon">🎉</div>
+                                <p>Fun times together</p>
+                            </div>
+                            <div class="photo-placeholder">
+                                <div class="icon">❤️</div>
+                                <p>Unforgettable moments</p>
+                            </div>
+                        </div>
+                        <p class="modal-text" style="margin-top: 20px;">Every moment with you is a treasure! 💖</p>
+                    `;
+                    break;
+
+                case 'wishes':
+                    modalBody.innerHTML = `
+                        <div class="modal-icon">🌟</div>
+                        <h2 class="modal-title">Birthday Wishes For You</h2>
+                        <div class="wishes-list">
+                            <div class="wish-item">
+                                <h4>✨ For Your Dreams</h4>
+                                <p>May all your dreams come true this year, and may you achieve everything you set your heart on!</p>
+                            </div>
+                            <div class="wish-item">
+                                <h4>💪 For Your Strength</h4>
+                                <p>May you continue to grow stronger, wiser, and more confident with each passing day!</p>
+                            </div>
+                            <div class="wish-item">
+                                <h4>❤️ For Your Heart</h4>
+                                <p>May your heart always be filled with love, joy, and peace. You deserve all the happiness!</p>
+                            </div>
+                            <div class="wish-item">
+                                <h4>🌈 For Your Journey</h4>
+                                <p>May your path be filled with amazing adventures, wonderful surprises, and beautiful moments!</p>
+                            </div>
+                            <div class="wish-item">
+                                <h4>🎯 For Your Success</h4>
+                                <p>May this year bring you incredible success in everything you do. You've got this!</p>
+                            </div>
+                            <div class="wish-item">
+                                <h4>🌟 For Your Life</h4>
+                                <p>May your life be as beautiful, bright, and amazing as you are. Happy Birthday! 🎂</p>
+                            </div>
+                        </div>
+                    `;
+                    break;
+
+                case 'quiz':
+                    showQuiz();
+                    break;
+
+                case 'memory-game':
+                    showMemoryGame();
+                    break;
+
+                case 'fortune':
+                    modalBody.innerHTML = `
+                        <div class="modal-icon">🥠</div>
+                        <h2 class="modal-title">Your Fortune Cookie</h2>
+                        <p class="modal-text">Crack open the cookie to reveal your fortune!</p>
+                        <div class="fortune-cookie">
+                            <div class="cookie-emoji" onclick="crackCookie()">🥠</div>
+                            <div class="fortune-text" id="fortuneText">
+                                <h3>Your Fortune Says:</h3>
+                                <p id="fortuneMessage"></p>
+                            </div>
+                        </div>
+                    `;
+                    break;
+            }
+
+            modal.classList.add('active');
+        }
+
+        // Quiz Game
+        let currentQuestion = 0;
+        let score = 0;
+        const quizQuestions = [
+            {
+                question: "What makes Romana so special?",
+                options: ["Everything about her!", "Her smile", "Her kindness", "All of the above"],
+                correct: 3
+            },
+            {
+                question: "What's the best thing about being Romana's friend?",
+                options: ["Her loyalty", "Her humor", "Her support", "All of these!"],
+                correct: 3
+            },
+            {
+                question: "What does Romana deserve on her birthday?",
+                options: ["The world", "All the happiness", "Endless joy", "All of the above!"],
+                correct: 3
+            }
+        ];
+
+        function showQuiz() {
+            currentQuestion = 0;
+            score = 0;
+            const modalBody = document.getElementById('modalBody');
+
+            modalBody.innerHTML = `
+                <div class="modal-icon">🎮</div>
+                <h2 class="modal-title">Fun Birthday Quiz!</h2>
+                <p class="modal-text">Let's see how well you know yourself! 😄</p>
+                <div class="quiz-container" id="quizContainer"></div>
+                <div class="quiz-result" id="quizResult"></div>
+            `;
+
+            showQuestion();
+        }
+
+        function showQuestion() {
+            const container = document.getElementById('quizContainer');
+            const q = quizQuestions[currentQuestion];
+
+            container.innerHTML = `
+                <div class="question active">
+                    <h3>Question ${currentQuestion + 1} of ${quizQuestions.length}</h3>
+                    <p style="color: white; font-size: 1.2rem; margin-bottom: 20px;">${q.question}</p>
+                    <div class="quiz-options">
+                        ${q.options.map((opt, idx) => `
+                            <div class="quiz-option" onclick="checkAnswer(${idx})">${opt}</div>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+        }
+
+        function checkAnswer(selected) {
+            const q = quizQuestions[currentQuestion];
+            const options = document.querySelectorAll('.quiz-option');
+
+            if (selected === q.correct) {
+                options[selected].classList.add('correct');
+                score++;
+                createParticles('🎉', 10);
+            } else {
+                options[selected].classList.add('wrong');
+                options[q.correct].classList.add('correct');
+            }
+
+            options.forEach(opt => opt.style.pointerEvents = 'none');
+
+            setTimeout(() => {
+                currentQuestion++;
+                if (currentQuestion < quizQuestions.length) {
+                    showQuestion();
+                } else {
+                    showQuizResult();
+                }
+            }, 1500);
+        }
+
+        function showQuizResult() {
+            document.getElementById('quizContainer').style.display = 'none';
+            const resultDiv = document.getElementById('quizResult');
+            resultDiv.classList.add('show');
+
+            let message = score === quizQuestions.length
+                ? "Perfect score! You're amazing! 🌟"
+                : "Great job! You're wonderful! 💖";
+
+            resultDiv.innerHTML = `
+                <h3>🎊 Quiz Complete! 🎊</h3>
+                <p style="color: white; font-size: 1.5rem; margin: 20px 0;">Score: ${score}/${quizQuestions.length}</p>
+                <p style="color: white; font-size: 1.2rem;">${message}</p>
+            `;
+
+            createParticles('⭐', 20);
+        }
+
+        // Memory Game
+        const memoryIcons = ['🎂', '🎉', '🎁', '🎈', '⭐', '💝'];
+        let memoryCards = [];
+        let flippedCards = [];
+        let matchedPairs = 0;
+        let moves = 0;
+
+        function showMemoryGame() {
+            const modalBody = document.getElementById('modalBody');
+            matchedPairs = 0;
+            moves = 0;
+
+            // Create pairs
+            memoryCards = [...memoryIcons, ...memoryIcons]
+                .sort(() => Math.random() - 0.5);
+
+            modalBody.innerHTML = `
+                <div class="modal-icon">🎴</div>
+                <h2 class="modal-title">Memory Match Game</h2>
+                <p class="modal-text">Match all the pairs!</p>
+                <div class="game-stats">Moves: <span id="moves">0</span> | Pairs: <span id="pairs">0</span>/6</div>
+                <div class="memory-game">
+                    <div class="cards-grid" id="memoryCardsGrid"></div>
+                </div>
+            `;
+
+            const grid = document.getElementById('memoryCardsGrid');
+            memoryCards.forEach((icon, index) => {
+                grid.innerHTML += `
+                    <div class="memory-card" data-index="${index}" onclick="flipCard(${index})">
+                        <div class="card-front">❓</div>
+                        <div class="card-back">${icon}</div>
+                    </div>
+                `;
+            });
+        }
+
+        function flipCard(index) {
+            if (flippedCards.length >= 2) return;
+
+            const card = document.querySelector(`[data-index="${index}"]`);
+            if (card.classList.contains('flipped') || card.classList.contains('matched')) return;
+
+            card.classList.add('flipped');
+            flippedCards.push({ index, icon: memoryCards[index], card });
+
+            if (flippedCards.length === 2) {
+                moves++;
+                document.getElementById('moves').textContent = moves;
+
+                setTimeout(() => {
+                    checkMatch();
+                }, 800);
+            }
+        }
+
+        function checkMatch() {
+            const [card1, card2] = flippedCards;
+
+            if (card1.icon === card2.icon) {
+                card1.card.classList.add('matched');
+                card2.card.classList.add('matched');
+                matchedPairs++;
+                document.getElementById('pairs').textContent = matchedPairs;
+                createParticles('✨', 5);
+
+                if (matchedPairs === 6) {
+                    setTimeout(() => {
+                        alert(`🎉 Congratulations! You won in ${moves} moves! 🎉`);
+                    }, 500);
+                }
+            } else {
+                card1.card.classList.remove('flipped');
+                card2.card.classList.remove('flipped');
+            }
+
+            flippedCards = [];
+        }
+
+        // Fortune Cookie
+        const fortunes = [
+            "This year will bring you incredible joy and wonderful surprises! Your dreams are within reach! 🌟",
+            "An amazing adventure awaits you! Embrace every moment and watch the magic unfold! ✨",
+            "Love, laughter, and success will follow you wherever you go this year! 💖",
+            "Your kindness will return to you tenfold! Beautiful things are coming your way! 🌈",
+            "This is your year to shine! Every day will bring new reasons to smile! 😊",
+            "Great opportunities are heading your way! Trust in yourself and amazing things will happen! 🎯",
+            "Your happiness will inspire everyone around you! You're destined for greatness! 🌟",
+            "This year, all your wishes will start coming true! Believe in the magic! ✨"
+        ];
+
+        function crackCookie() {
+            const fortuneText = document.getElementById('fortuneText');
+            const fortuneMessage = document.getElementById('fortuneMessage');
+
+            const randomFortune = fortunes[Math.floor(Math.random() * fortunes.length)];
+            fortuneMessage.textContent = randomFortune;
+            fortuneText.classList.add('show');
+
+            createParticles('🌟', 15);
+        }
+
+        // Close Modal
+        function closeModal() {
+            document.getElementById('modal').classList.remove('active');
+        }
+
+        // Go Back
+        function goBack() {
+            closeModal();
+        }
+
+        // Close modal when clicking outside
+        document.getElementById('modal').addEventListener('click', (e) => {
+            if (e.target.id === 'modal') {
+                closeModal();
+            }
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday Romana!</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Google Fonts: Noto Sans Bengali (for Bangla) and Dancing Script (for aesthetic English) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Noto+Sans+Bengali:wght@300;400;700&family=Poppins:wght@300;400;600&display=swap"
+        rel="stylesheet">
+
+    <!-- Confetti Library -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --gold: #FFD700;
+            --dark-bg: #0f172a;
+            --accent: #a855f7;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: black;
+            color: white;
+            overflow-x: hidden;
+        }
+
+        .bangla-text {
+            font-family: 'Noto Sans Bengali', sans-serif;
+        }
+
+        .handwriting {
+            font-family: 'Dancing Script', cursive;
+        }
+
+        /* Starry Background Animation */
+        .stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            background: radial-gradient(ellipse at bottom, #1B2735 0%, #090A0F 100%);
+        }
+
+        .star {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            animation: twinkle var(--duration) ease-in-out infinite;
+            opacity: var(--opacity);
+        }
+
+        @keyframes twinkle {
+
+            0%,
+            100% {
+                opacity: 0.2;
+                transform: scale(0.8);
+            }
+
+            50% {
+                opacity: 1;
+                transform: scale(1.2);
+            }
+        }
+
+        /* Glassmorphism Card */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+        }
+
+        /* Entrance Animation */
+        #entrance-screen {
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+
+        .hidden-screen {
+            opacity: 0;
+            pointer-events: none;
+            transform: scale(1.1);
+        }
+
+        /* Gift Box Pulse */
+        .gift-box {
+            animation: pulse-gift 2s infinite;
+            cursor: pointer;
+        }
+
+        @keyframes pulse-gift {
+            0% {
+                transform: scale(1);
+                box-shadow: 0 0 0 0 rgba(168, 85, 247, 0.7);
+            }
+
+            70% {
+                transform: scale(1.1);
+                box-shadow: 0 0 0 20px rgba(168, 85, 247, 0);
+            }
+
+            100% {
+                transform: scale(1);
+                box-shadow: 0 0 0 0 rgba(168, 85, 247, 0);
+            }
+        }
+
+        /* Photo Frame */
+        .photo-frame {
+            position: relative;
+            overflow: hidden;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.5);
+            border: 2px solid rgba(255, 215, 0, 0.3);
+        }
+
+        .photo-frame img {
+            transition: transform 0.5s ease;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Floating Elements */
+        .floating {
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0px);
+            }
+
+            50% {
+                transform: translateY(-20px);
+            }
+
+            100% {
+                transform: translateY(0px);
+            }
+        }
+    </style>
+</head>
+
+<body class="antialiased min-h-screen relative">
+
+    <!-- Background Stars -->
+    <div id="stars-container" class="stars"></div>
+
+    <!-- AUDIO PLAYER (Hidden) -->
+    <!-- Note: Replace 'music.mp3' with a link to her favorite song if you have one hosted, or remove if not needed -->
+    <audio id="bg-music" loop>
+        <source src="https://pixabay.com/music/pop-happy-birthday-to-you-piano-version-13976/" type="audio/mpeg">
+    </audio>
+
+    <!-- === SCREEN 1: ENTRANCE === -->
+    <div id="entrance-screen"
+        class="fixed inset-0 z-50 flex flex-col items-center justify-center bg-black text-center p-6">
+        <div class="mb-8">
+            <h2 class="text-gray-300 tracking-widest text-sm uppercase mb-2">A Surprise for</h2>
+            <h1 class="text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-600 handwriting"
+                style="line-height: 1.5;">Romana Afroz</h1>
+        </div>
+
+        <div class="gift-box relative group" onclick="openGift()">
+            <div class="text-6xl text-purple-500 drop-shadow-[0_0_15px_rgba(168,85,247,0.5)]">
+                <i class="fas fa-gift"></i>
+            </div>
+            <p class="mt-4 text-sm text-gray-400 animate-bounce">Tap to Open</p>
+        </div>
+    </div>
+
+    <!-- === SCREEN 2: MAIN CONTENT (Initially Hidden) === -->
+    <div id="main-content" class="relative z-10 opacity-0 transition-opacity duration-1000 hidden">
+
+        <!-- Music Toggle Button -->
+        <button onclick="toggleMusic()"
+            class="fixed top-4 right-4 z-50 bg-white/10 backdrop-blur-md p-3 rounded-full shadow-lg border border-white/20 text-white">
+            <i id="music-icon" class="fas fa-play"></i>
+        </button>
+
+        <!-- Hero Section -->
+        <header class="min-h-screen flex flex-col items-center justify-center text-center p-6 relative">
+            <div class="absolute top-1/4 left-10 text-yellow-500 opacity-20 text-6xl floating"
+                style="animation-delay: 0s;">★</div>
+            <div class="absolute bottom-1/4 right-10 text-purple-500 opacity-20 text-5xl floating"
+                style="animation-delay: 2s;">♥</div>
+
+            <span
+                class="inline-block py-1 px-3 rounded-full bg-purple-900/50 border border-purple-500/30 text-purple-200 text-xs font-bold tracking-wider mb-4 uppercase">
+                November 26
+            </span>
+
+            <h1
+                class="text-5xl md:text-7xl font-bold mb-2 handwriting text-transparent bg-clip-text bg-gradient-to-r from-yellow-200 via-yellow-400 to-yellow-200">
+                Happy Birthday!
+            </h1>
+            <h2 class="text-2xl text-white mb-6 bangla-text font-bold">শুভ জন্মদিন রোমানা!</h2>
+
+            <p class="text-gray-300 max-w-md mx-auto leading-relaxed mb-8">
+                Another year, another adventure. <br>
+                <span class="text-purple-400 font-semibold bangla-text">আজকের দিনটা তোমার জন্য অনেক স্পেশাল।</span>
+            </p>
+
+            <div class="animate-bounce mt-10 text-gray-500">
+                <i class="fas fa-chevron-down"></i>
+            </div>
+        </header>
+
+        <!-- Image Gallery & Friendship Section -->
+        <section class="py-12 px-4 max-w-md mx-auto">
+            <div class="glass-card p-6 mb-8 transform rotate-1 hover:rotate-0 transition duration-300">
+                <h3 class="text-xl font-bold mb-4 text-purple-300 flex items-center">
+                    <i class="fas fa-infinity mr-2 text-xs"></i> 8 Years of Friendship
+                </h3>
+
+                <!-- CHANGE IMAGE 1 HERE: Replace src with your picture URL -->
+                <div class="photo-frame h-64 mb-4">
+                    <img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?q=80&w=1000&auto=format&fit=crop"
+                        alt="Us" class="w-full h-full object-cover">
+                </div>
+
+                <p class="text-gray-300 text-sm leading-relaxed bangla-text">
+                    ৮ বছরের বন্ধুত্ব আমাদের। কত স্মৃতি, কত আড্ডা, আর কত পাগলামি! You are not just a best friend, you are
+                    family.
+                </p>
+            </div>
+
+            <!-- The Big Wish -->
+            <div
+                class="glass-card p-6 mb-8 transform -rotate-1 hover:rotate-0 transition duration-300 bg-gradient-to-br from-purple-900/40 to-black/40">
+
+                <!-- CHANGE IMAGE 2 HERE: Replace src with your picture URL -->
+                <div class="photo-frame h-48 mb-4">
+                    <img src="https://images.unsplash.com/photo-1470225620780-dba8ba36b745?q=80&w=1000&auto=format&fit=crop"
+                        alt="Party" class="w-full h-full object-cover">
+                </div>
+
+                <h3 class="text-2xl font-bold mb-2 handwriting text-yellow-400">The Last Single Birthday</h3>
+                <p class="text-gray-300 text-sm mb-4">
+                    This is your last birthday before marriage. <span class="bangla-text">বিয়ের আগে এটাই শেষ জন্মদিন,
+                        তাই এটা একটু বেশিই স্পেশাল!</span>
+                </p>
+                <p class="text-gray-400 text-xs italic">
+                    May this new chapter brings you all the happiness in the world. But remember, <span
+                        class="text-white">I'll always be your annoying best friend!</span>
+                </p>
+            </div>
+        </section>
+
+        <!-- Emotional Letter -->
+        <section class="py-10 px-6 bg-purple-900/10 mb-12">
+            <div class="max-w-lg mx-auto text-center">
+                <i class="fas fa-quote-left text-4xl text-purple-600/30 mb-4"></i>
+                <p class="text-lg text-gray-200 leading-8 bangla-text mb-6">
+                    রোমানা, জীবনে অনেক মানুষ আসে আবার চলেও যায়। কিন্তু গত ৮ বছরে তুমি ছিলে কনস্ট্যান্ট। তোর হাসিমুখটা
+                    যেন সারাজীবন এমনই থাকে। আল্লাহ তোকে অনেক ভালো রাখুক।
+                </p>
+                <p class="text-md text-gray-400 handwriting">
+                    "Friendship isn't about who you've known the longest. It's about who walked into your life and said,
+                    'I'm here for you' and proved it."
+                </p>
+                <div class="mt-8 border-t border-gray-700 w-16 mx-auto"></div>
+                <p class="mt-4 font-bold text-yellow-500 uppercase tracking-widest text-sm">Best Wishes From</p>
+                <p class="text-2xl font-bold text-white mt-1">Arman</p>
+            </div>
+        </section>
+
+        <!-- Footer Action -->
+        <footer class="text-center pb-20 px-6">
+            <p class="text-gray-500 text-sm mb-6">Made with ❤️ for my bestie.</p>
+
+            <a href="https://wa.me/?text=Thank%20you%20Arman%20for%20the%20surprise!" target="_blank"
+                class="inline-flex items-center justify-center px-6 py-3 bg-gradient-to-r from-green-500 to-emerald-600 text-white font-bold rounded-full shadow-lg shadow-green-500/30 hover:scale-105 transition transform">
+                <i class="fab fa-whatsapp mr-2"></i> Say Hi to Arman
+            </a>
+        </footer>
+
+    </div>
+
+    <script>
+        // Generate Star Background
+        function createStars() {
+            const container = document.getElementById('stars-container');
+            const starCount = 100;
+
+            for (let i = 0; i < starCount; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+
+                // Random positioning
+                const x = Math.random() * 100;
+                const y = Math.random() * 100;
+                const size = Math.random() * 2 + 1; // 1px to 3px
+                const duration = Math.random() * 3 + 2; // 2s to 5s
+
+                star.style.left = `${x}%`;
+                star.style.top = `${y}%`;
+                star.style.width = `${size}px`;
+                star.style.height = `${size}px`;
+                star.style.setProperty('--duration', `${duration}s`);
+                star.style.setProperty('--opacity', Math.random());
+
+                container.appendChild(star);
+            }
+        }
+
+        createStars();
+
+        // Music Control
+        let isPlaying = false;
+        const audio = document.getElementById('bg-music');
+        const musicIcon = document.getElementById('music-icon');
+
+        function toggleMusic() {
+            if (isPlaying) {
+                audio.pause();
+                musicIcon.classList.remove('fa-pause');
+                musicIcon.classList.add('fa-play');
+            } else {
+                audio.play();
+                musicIcon.classList.remove('fa-play');
+                musicIcon.classList.add('fa-pause');
+            }
+            isPlaying = !isPlaying;
+        }
+
+        // Open Gift / Entrance Function
+        function openGift() {
+            // 1. Fade out entrance
+            const entrance = document.getElementById('entrance-screen');
+            entrance.classList.add('hidden-screen');
+
+            // 2. Show main content
+            const main = document.getElementById('main-content');
+            main.classList.remove('hidden');
+            setTimeout(() => {
+                main.classList.remove('opacity-0');
+            }, 100);
+
+            // 3. Trigger Confetti
+            fireConfetti();
+
+            // 4. Try to play music (might be blocked by browser policy without user interaction, but click counts)
+            audio.volume = 0.5;
+            audio.play().then(() => {
+                isPlaying = true;
+                musicIcon.classList.remove('fa-play');
+                musicIcon.classList.add('fa-pause');
+            }).catch(e => {
+                console.log("Audio autoplay prevented, user must click play manually.");
+            });
+        }
+
+        // Confetti Effect
+        function fireConfetti() {
+            var duration = 3000;
+            var animationEnd = Date.now() + duration;
+            var defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 0 };
+
+            var random = function (min, max) {
+                return Math.random() * (max - min) + min;
+            };
+
+            var interval = setInterval(function () {
+                var timeLeft = animationEnd - Date.now();
+
+                if (timeLeft <= 0) {
+                    return clearInterval(interval);
+                }
+
+                var particleCount = 50 * (timeLeft / duration);
+
+                // since particles fall down, start a bit higher than random
+                confetti(Object.assign({}, defaults, { particleCount, origin: { x: random(0.1, 0.3), y: Math.random() - 0.2 } }));
+                confetti(Object.assign({}, defaults, { particleCount, origin: { x: random(0.7, 0.9), y: Math.random() - 0.2 } }));
+            }, 250);
+
+            // Big explosion at start
+            confetti({
+                particleCount: 100,
+                spread: 70,
+                origin: { y: 0.6 }
+            });
+        }
+    </script>
+</body>
+
+</html>

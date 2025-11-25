@@ -1,0 +1,942 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Romana's Cosmic Journey 🌌</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=Major+Mono+Display&display=swap"
+        rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            cursor: none;
+        }
+
+        :root {
+            --cosmic-purple: #8b5cf6;
+            --cosmic-pink: #ec4899;
+            --cosmic-blue: #3b82f6;
+            --cosmic-gold: #fbbf24;
+            --deep-space: #030014;
+        }
+
+        body {
+            font-family: 'Crimson Text', serif;
+            background: var(--deep-space);
+            color: white;
+            overflow-x: hidden;
+            height: 100vh;
+        }
+
+        /* Custom Cursor */
+        .cursor {
+            position: fixed;
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--cosmic-gold);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            transition: transform 0.2s, border-color 0.3s;
+            mix-blend-mode: difference;
+        }
+
+        .cursor.hover {
+            transform: scale(2);
+            border-color: var(--cosmic-pink);
+        }
+
+        /* Canvas for particles */
+        #particleCanvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+        }
+
+        /* Main Container */
+        .universe {
+            position: relative;
+            z-index: 1;
+            width: 100%;
+            min-height: 100vh;
+        }
+
+        /* Intro Overlay */
+        .intro-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: radial-gradient(circle at center, #1a0b2e 0%, var(--deep-space) 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 10000;
+            transition: opacity 1.5s, visibility 1.5s;
+            padding: 2rem;
+        }
+
+        .intro-overlay.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .intro-title {
+            font-family: 'Major Mono Display', monospace;
+            font-size: clamp(1.5rem, 5vw, 3rem);
+            background: linear-gradient(45deg, var(--cosmic-purple), var(--cosmic-pink), var(--cosmic-blue), var(--cosmic-gold));
+            background-size: 300% 300%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradientShift 4s ease infinite;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .intro-subtitle {
+            font-size: clamp(1rem, 3vw, 1.5rem);
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 3rem;
+            text-align: center;
+        }
+
+        .enter-button {
+            padding: 1.5rem 3rem;
+            font-size: 1.2rem;
+            font-family: 'Crimson Text', serif;
+            background: transparent;
+            border: 2px solid var(--cosmic-gold);
+            color: var(--cosmic-gold);
+            border-radius: 50px;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .enter-button::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: var(--cosmic-gold);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.5s, height 0.5s;
+        }
+
+        .enter-button:hover {
+            color: var(--deep-space);
+        }
+
+        .enter-button:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .enter-button span {
+            position: relative;
+            z-index: 1;
+        }
+
+        @keyframes gradientShift {
+
+            0%,
+            100% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+        }
+
+        /* Constellation Map */
+        .constellation-map {
+            position: relative;
+            width: 100%;
+            min-height: 100vh;
+            padding: 4rem 2rem;
+        }
+
+        .constellation-title {
+            font-family: 'Major Mono Display', monospace;
+            font-size: clamp(1.2rem, 4vw, 2rem);
+            text-align: center;
+            margin-bottom: 1rem;
+            color: var(--cosmic-gold);
+            opacity: 0;
+            animation: fadeInDown 1s forwards 0.5s;
+        }
+
+        .constellation-hint {
+            text-align: center;
+            font-size: clamp(0.9rem, 2vw, 1.1rem);
+            color: rgba(255, 255, 255, 0.6);
+            margin-bottom: 4rem;
+            opacity: 0;
+            animation: fadeInDown 1s forwards 1s;
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Memory Nodes */
+        .memory-constellation {
+            position: relative;
+            max-width: 1400px;
+            margin: 0 auto;
+            min-height: 80vh;
+        }
+
+        .memory-node {
+            position: absolute;
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(139, 92, 246, 0.6), transparent);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 2rem;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            animation: pulse 3s ease-in-out infinite;
+            cursor: pointer;
+        }
+
+        .memory-node::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            border: 2px solid var(--cosmic-purple);
+            animation: ripple 2s ease-out infinite;
+        }
+
+        .memory-node:hover {
+            transform: scale(1.3);
+            filter: brightness(1.5);
+        }
+
+        /* Positioning for 8 memories in constellation pattern */
+        .memory-node:nth-child(1) {
+            top: 10%;
+            left: 20%;
+            animation-delay: 0s;
+        }
+
+        .memory-node:nth-child(2) {
+            top: 5%;
+            left: 50%;
+            animation-delay: 0.5s;
+        }
+
+        .memory-node:nth-child(3) {
+            top: 15%;
+            right: 15%;
+            animation-delay: 1s;
+        }
+
+        .memory-node:nth-child(4) {
+            top: 40%;
+            left: 10%;
+            animation-delay: 1.5s;
+        }
+
+        .memory-node:nth-child(5) {
+            top: 45%;
+            right: 20%;
+            animation-delay: 2s;
+        }
+
+        .memory-node:nth-child(6) {
+            top: 70%;
+            left: 25%;
+            animation-delay: 2.5s;
+        }
+
+        .memory-node:nth-child(7) {
+            top: 75%;
+            left: 55%;
+            animation-delay: 3s;
+        }
+
+        .memory-node:nth-child(8) {
+            top: 65%;
+            right: 15%;
+            animation-delay: 3.5s;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                opacity: 0.6;
+            }
+
+            50% {
+                opacity: 1;
+            }
+        }
+
+        @keyframes ripple {
+            0% {
+                transform: scale(1);
+                opacity: 1;
+            }
+
+            100% {
+                transform: scale(2);
+                opacity: 0;
+            }
+        }
+
+        /* Memory Details Modal */
+        .memory-detail {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            width: 90%;
+            max-width: 700px;
+            max-height: 85vh;
+            background: rgba(10, 5, 30, 0.95);
+            backdrop-filter: blur(20px);
+            border: 2px solid var(--cosmic-gold);
+            border-radius: 30px;
+            padding: 3rem;
+            z-index: 9000;
+            opacity: 0;
+            transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            overflow-y: auto;
+        }
+
+        .memory-detail.active {
+            transform: translate(-50%, -50%) scale(1);
+            opacity: 1;
+        }
+
+        .memory-detail-close {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            font-size: 2rem;
+            background: none;
+            border: none;
+            color: var(--cosmic-gold);
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .memory-detail-close:hover {
+            transform: rotate(90deg);
+        }
+
+        .memory-detail-emoji {
+            font-size: 4rem;
+            text-align: center;
+            margin-bottom: 1.5rem;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-15px);
+            }
+        }
+
+        .memory-detail-year {
+            font-family: 'Major Mono Display', monospace;
+            font-size: 1.5rem;
+            color: var(--cosmic-pink);
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+
+        .memory-detail-title {
+            font-size: 1.8rem;
+            font-weight: 600;
+            text-align: center;
+            margin-bottom: 2rem;
+            color: var(--cosmic-gold);
+        }
+
+        .memory-detail-content {
+            font-size: 1.2rem;
+            line-height: 1.9;
+            color: rgba(255, 255, 255, 0.9);
+            font-style: italic;
+        }
+
+        .memory-detail-content .bengali {
+            color: var(--cosmic-purple);
+            font-style: normal;
+            font-weight: 600;
+        }
+
+        /* Photo Gallery Cosmic Style */
+        .photo-gallery-section {
+            min-height: 100vh;
+            padding: 4rem 2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .gallery-title {
+            font-family: 'Major Mono Display', monospace;
+            font-size: clamp(1.5rem, 4vw, 2.5rem);
+            text-align: center;
+            margin-bottom: 3rem;
+            background: linear-gradient(90deg, var(--cosmic-pink), var(--cosmic-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .photo-cosmic-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            width: 100%;
+        }
+
+        .photo-orb {
+            aspect-ratio: 1;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 3px solid var(--cosmic-purple);
+            position: relative;
+            transition: all 0.5s;
+            animation: orbitFloat 6s ease-in-out infinite;
+        }
+
+        .photo-orb:nth-child(2) {
+            animation-delay: -2s;
+        }
+
+        .photo-orb:nth-child(3) {
+            animation-delay: -4s;
+        }
+
+        .photo-orb:nth-child(4) {
+            animation-delay: -1s;
+        }
+
+        .photo-orb:nth-child(5) {
+            animation-delay: -3s;
+        }
+
+        @keyframes orbitFloat {
+
+            0%,
+            100% {
+                transform: translateY(0) rotate(0deg);
+            }
+
+            33% {
+                transform: translateY(-20px) rotate(5deg);
+            }
+
+            66% {
+                transform: translateY(10px) rotate(-5deg);
+            }
+        }
+
+        .photo-orb:hover {
+            transform: scale(1.1);
+            border-color: var(--cosmic-gold);
+            box-shadow: 0 0 40px rgba(251, 191, 36, 0.5);
+        }
+
+        .photo-orb-placeholder {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.3), rgba(236, 72, 153, 0.3));
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            font-size: 2rem;
+            text-align: center;
+        }
+
+        .photo-orb-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(0deg, rgba(0, 0, 0, 0.9), transparent);
+            padding: 1.5rem 1rem;
+            font-size: 0.9rem;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .photo-orb:hover .photo-orb-caption {
+            opacity: 1;
+        }
+
+        /* Final Message Cosmic Scroll */
+        .final-message-section {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 4rem 2rem;
+            position: relative;
+        }
+
+        .cosmic-letter {
+            max-width: 800px;
+            padding: 4rem;
+            background: rgba(20, 10, 40, 0.8);
+            border: 3px solid var(--cosmic-gold);
+            border-radius: 40px;
+            box-shadow: 0 0 60px rgba(139, 92, 246, 0.4);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cosmic-letter::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(139, 92, 246, 0.1), transparent);
+            animation: shimmer 3s linear infinite;
+        }
+
+        @keyframes shimmer {
+            0% {
+                transform: translateX(-100%) translateY(-100%) rotate(45deg);
+            }
+
+            100% {
+                transform: translateX(100%) translateY(100%) rotate(45deg);
+            }
+        }
+
+        .letter-header {
+            font-family: 'Caveat', cursive;
+            font-size: clamp(1.8rem, 4vw, 2.8rem);
+            text-align: center;
+            color: var(--cosmic-gold);
+            margin-bottom: 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .letter-content {
+            font-size: clamp(1rem, 2.5vw, 1.3rem);
+            line-height: 2;
+            color: rgba(255, 255, 255, 0.95);
+            position: relative;
+            z-index: 1;
+            font-family: 'Crimson Text', serif;
+        }
+
+        .letter-content p {
+            margin-bottom: 1.5rem;
+        }
+
+        .letter-content .highlight {
+            color: var(--cosmic-pink);
+            font-weight: 600;
+        }
+
+        .letter-signature {
+            text-align: right;
+            font-family: 'Caveat', cursive;
+            font-size: 2rem;
+            color: var(--cosmic-gold);
+            margin-top: 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Final Wish */
+        .final-wish {
+            text-align: center;
+            margin-top: 4rem;
+            font-size: clamp(1.5rem, 4vw, 2.5rem);
+            font-family: 'Major Mono Display', monospace;
+            background: linear-gradient(45deg, var(--cosmic-purple), var(--cosmic-pink), var(--cosmic-blue), var(--cosmic-gold));
+            background-size: 300% 300%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradientShift 4s ease infinite;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .memory-node {
+                width: 60px;
+                height: 60px;
+                font-size: 1.5rem;
+            }
+
+            .memory-detail {
+                padding: 2rem;
+            }
+
+            .cosmic-letter {
+                padding: 2rem;
+            }
+
+            .photo-cosmic-grid {
+                grid-template-columns: 1fr;
+                max-width: 400px;
+            }
+        }
+
+        /* Connecting Lines between nodes */
+        .constellation-line {
+            position: absolute;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, rgba(139, 92, 246, 0.5), transparent);
+            transform-origin: left center;
+            pointer-events: none;
+            opacity: 0.4;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Custom Cursor -->
+    <div class="cursor"></div>
+
+    <!-- Particle Canvas -->
+    <canvas id="particleCanvas"></canvas>
+
+    <!-- Intro Overlay -->
+    <div class="intro-overlay" id="introOverlay">
+        <h1 class="intro-title">ROMANA'S UNIVERSE</h1>
+        <p class="intro-subtitle">একটি মহাজাগতিক যাত্রা · A Cosmic Journey</p>
+        <button class="enter-button" id="enterBtn">
+            <span>শুরু করো · BEGIN</span>
+        </button>
+    </div>
+
+    <!-- Main Universe -->
+    <div class="universe">
+        <!-- Constellation Map -->
+        <section class="constellation-map">
+            <h2 class="constellation-title">OUR 8-YEAR CONSTELLATION</h2>
+            <p class="constellation-hint">প্রতিটি তারায় ক্লিক করো · Click each star to explore</p>
+
+            <div class="memory-constellation" id="constellation">
+                <div class="memory-node" data-memory="0">🌟</div>
+                <div class="memory-node" data-memory="1">💫</div>
+                <div class="memory-node" data-memory="2">✨</div>
+                <div class="memory-node" data-memory="3">🎭</div>
+                <div class="memory-node" data-memory="4">💪</div>
+                <div class="memory-node" data-memory="5">🌈</div>
+                <div class="memory-node" data-memory="6">💝</div>
+                <div class="memory-node" data-memory="7">🎂</div>
+            </div>
+        </section>
+
+        <!-- Photo Gallery -->
+        <section class="photo-gallery-section">
+            <h2 class="gallery-title">MEMORY ORBS · স্মৃতির গোলক</h2>
+            <div class="photo-cosmic-grid">
+                <div class="photo-orb">
+                    <div class="photo-orb-placeholder">📸<br>Photo 1</div>
+                    <div class="photo-orb-caption">আমাদের প্রথম adventures</div>
+                </div>
+                <div class="photo-orb">
+                    <div class="photo-orb-placeholder">📸<br>Photo 2</div>
+                    <div class="photo-orb-caption">সেই পাগলামির দিন</div>
+                </div>
+                <div class="photo-orb">
+                    <div class="photo-orb-placeholder">📸<br>Photo 3</div>
+                    <div class="photo-orb-caption">Unforgettable moments</div>
+                </div>
+                <div class="photo-orb">
+                    <div class="photo-orb-placeholder">📸<br>Photo 4</div>
+                    <div class="photo-orb-caption">হাসি আর আনন্দের স্মৃতি</div>
+                </div>
+                <div class="photo-orb">
+                    <div class="photo-orb-placeholder">📸<br>Photo 5</div>
+                    <div class="photo-orb-caption">Forever in my heart</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Final Message -->
+        <section class="final-message-section">
+            <div class="cosmic-letter">
+                <h3 class="letter-header">Dear Romana...</h3>
+                <div class="letter-content">
+                    <p>
+                        আজ থেকে <span class="highlight">8 years ago</span>, I had no idea that একটা সাধারণ বন্ধুত্ব
+                        would become the most extraordinary thing in my life. You've been my confidant, my partner in
+                        crime,
+                        my voice of reason, and my source of endless laughter.
+                    </p>
+                    <p>
+                        <span class="bengali">প্রতিটা মুহূর্ত, প্রতিটা কথোপকথন, প্রতিটা হাসি</span> – they're all stored
+                        in my heart like stars in this cosmic universe we created together. আমরা একসাথে বেড়ে উঠেছি,
+                        একসাথে স্বপ্ন দেখেছি, একসাথে জীবনের ups and downs face করেছি.
+                    </p>
+                    <p>
+                        As you embark on this new journey of marriage, I want you to remember that <span
+                            class="highlight">
+                            distance can never diminish what we have</span>. আমাদের বন্ধুত্ব is written in the stars,
+                        permanent and unshakeable. তুমি সবসময় আমার best friend থাকবে, no matter what chapter of life
+                        we're in.
+                    </p>
+                    <p>
+                        <span class="bengali">এই জন্মদিনে আমার শুভেচ্ছা শুধু একটাই</span> – may your life be filled with
+                        the same joy, love, and magic that you've brought into mine. You deserve all the happiness in
+                        the universe.
+                    </p>
+                </div>
+                <div class="letter-signature">আমার সব ভালোবাসা নিয়ে,<br>Arman 💙</div>
+            </div>
+
+            <p class="final-wish">
+                HAPPY BIRTHDAY ROMANA<br>
+                জন্মদিনের শুভেচ্ছা 🌌
+            </p>
+        </section>
+    </div>
+
+    <!-- Memory Detail Modal -->
+    <div class="memory-detail" id="memoryDetail">
+        <button class="memory-detail-close" id="closeDetail">×</button>
+        <div class="memory-detail-emoji" id="detailEmoji"></div>
+        <div class="memory-detail-year" id="detailYear"></div>
+        <div class="memory-detail-title" id="detailTitle"></div>
+        <div class="memory-detail-content" id="detailContent"></div>
+    </div>
+
+    <script>
+        // Memory Data
+        const memories = [
+            {
+                emoji: '🌟',
+                year: '2016-2017',
+                title: 'The Beginning',
+                content: '<span class="bengali">যেদিন আমাদের বন্ধুত্ব শুরু হলো</span>, that was the day my life changed forever. Remember our first conversations? আমরা জানতাম না that this random connection would become so deep. Those early days of discovering each other, sharing stories, and building the foundation of something beautiful.'
+            },
+            {
+                emoji: '💫',
+                year: '2017-2018',
+                title: 'Growing Closer',
+                content: 'This is when we truly became inseparable. <span class="bengali">প্রতিদিন কথা, প্রতিদিন নতুন কিছু শেয়ার করা</span>. Late night talks, silly jokes, sharing our dreams and fears. You became more than a friend – you became family.'
+            },
+            {
+                emoji: '✨',
+                year: '2018-2019',
+                title: 'The Golden Days',
+                content: '<span class="bengali">আমাদের সেই পাগলামির দিনগুলো!</span> All those adventures, the laughter that made our stomachs hurt, the memories that still make me smile. We were young, carefree, and had the whole world ahead of us. These were pure magic.'
+            },
+            {
+                emoji: '🎭',
+                year: '2019-2020',
+                title: 'Through Thick & Thin',
+                content: 'When life got tough, <span class="bengali">আমরা একে অপরের পাশে ছিলাম</span>. You saw me at my lowest and never judged. I supported you through your struggles. This year taught us that true friendship isn\'t just about happy times – it\'s about being there when it matters most.'
+            },
+            {
+                emoji: '💪',
+                year: '2020-2021',
+                title: 'Strength Together',
+                content: 'The pandemic, the uncertainty, the challenges – <span class="bengali">আমরা একসাথে সব face করেছি</span>. We became each other\'s strength, hope, and anchor. Even when the world felt crazy, our friendship remained constant and true.'
+            },
+            {
+                emoji: '🌈',
+                year: '2021-2022',
+                title: 'New Horizons',
+                content: '<span class="bengali">নতুন স্বপ্ন, নতুন পথ</span>. We started growing in different ways, pursuing our goals, but never growing apart. Every achievement, every milestone – we celebrated together. This is when I realized our bond transcends distance and time.'
+            },
+            {
+                emoji: '💝',
+                year: '2022-2023',
+                title: 'Deeper Bonds',
+                content: 'আমাদের বন্ধুত্ব আরও গভীর হলো. More mature conversations, deeper understanding, <span class="bengali">আরও বেশি trust আর love</span>. We knew each other so well that words became optional. This is the year I truly understood what it means to have a soulmate friend.'
+            },
+            {
+                emoji: '🎂',
+                year: '2024-NOW',
+                title: 'New Beginning',
+                content: '<span class="bengali">তোমার জীবনের নতুন chapter</span>. Marriage, new responsibilities, new adventures await you. But know this – no matter how life changes, আমাদের friendship চিরকাল থাকবে. You\'ll always be my best friend, my sister, my Romana. Forever and always. 💙'
+            }
+        ];
+
+        // Particle Canvas
+        const canvas = document.getElementById('particleCanvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = document.documentElement.scrollHeight;
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 2;
+                this.speedX = (Math.random() - 0.5) * 0.5;
+                this.speedY = (Math.random() - 0.5) * 0.5;
+                this.color = ['#8b5cf6', '#ec4899', '#3b82f6', '#fbbf24'][Math.floor(Math.random() * 4)];
+            }
+
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+
+                if (this.x > canvas.width || this.x < 0) this.speedX *= -1;
+                if (this.y > canvas.height || this.y < 0) this.speedY *= -1;
+            }
+
+            draw() {
+                ctx.fillStyle = this.color;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        const particles = [];
+        for (let i = 0; i < 150; i++) {
+            particles.push(new Particle());
+        }
+
+        function animateParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(particle => {
+                particle.update();
+                particle.draw();
+            });
+            requestAnimationFrame(animateParticles);
+        }
+        animateParticles();
+
+        // Custom Cursor
+        const cursor = document.querySelector('.cursor');
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+        });
+
+        document.querySelectorAll('.memory-node, .enter-button, .photo-orb').forEach(el => {
+            el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
+            el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
+        });
+
+        // Enter Button
+        document.getElementById('enterBtn').addEventListener('click', () => {
+            document.getElementById('introOverlay').classList.add('hidden');
+        });
+
+        // Memory Node Clicks
+        const memoryNodes = document.querySelectorAll('.memory-node');
+        const memoryDetail = document.getElementById('memoryDetail');
+        const closeDetail = document.getElementById('closeDetail');
+
+        memoryNodes.forEach(node => {
+            node.addEventListener('click', () => {
+                const memoryIndex = node.getAttribute('data-memory');
+                const memory = memories[memoryIndex];
+
+                document.getElementById('detailEmoji').textContent = memory.emoji;
+                document.getElementById('detailYear').textContent = memory.year;
+                document.getElementById('detailTitle').textContent = memory.title;
+                document.getElementById('detailContent').innerHTML = memory.content;
+
+                memoryDetail.classList.add('active');
+            });
+        });
+
+        closeDetail.addEventListener('click', () => {
+            memoryDetail.classList.remove('active');
+        });
+
+        memoryDetail.addEventListener('click', (e) => {
+            if (e.target === memoryDetail) {
+                memoryDetail.classList.remove('active');
+            }
+        });
+
+        // Draw constellation lines
+        function drawConstellationLines() {
+            const constellation = document.getElementById('constellation');
+            const nodes = Array.from(memoryNodes);
+
+            // Connect nodes in sequence
+            for (let i = 0; i < nodes.length - 1; i++) {
+                const rect1 = nodes[i].getBoundingClientRect();
+                const rect2 = nodes[i + 1].getBoundingClientRect();
+                const parentRect = constellation.getBoundingClientRect();
+
+                const x1 = rect1.left - parentRect.left + rect1.width / 2;
+                const y1 = rect1.top - parentRect.top + rect1.height / 2;
+                const x2 = rect2.left - parentRect.left + rect2.width / 2;
+                const y2 = rect2.top - parentRect.top + rect2.height / 2;
+
+                const line = document.createElement('div');
+                line.className = 'constellation-line';
+
+                const distance = Math.sqrt((x2 - x1) ** 2 + (y2 - y1) ** 2);
+                const angle = Math.atan2(y2 - y1, x2 - x1) * 180 / Math.PI;
+
+                line.style.width = distance + 'px';
+                line.style.left = x1 + 'px';
+                line.style.top = y1 + 'px';
+                line.style.transform = `rotate(${angle}deg)`;
+
+                constellation.appendChild(line);
+            }
+        }
+
+        setTimeout(drawConstellationLines, 1000);
+
+        // Resize handler
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = document.documentElement.scrollHeight;
+        });
+
+        // Update canvas height on scroll
+        window.addEventListener('scroll', () => {
+            if (canvas.height < document.documentElement.scrollHeight) {
+                canvas.height = document.documentElement.scrollHeight;
+            }
+        });
+    </script>
+</body>
+
+</html>
