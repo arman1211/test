@@ -4,14 +4,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Official Biye Permit v3.0</title>
+    <title>⚠️ SECRET CHAT LEAKED</title>
 
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
 
     <!-- Fonts -->
     <link
-        href="https://fonts.googleapis.com/css2?family=Galada&family=Hind+Siliguri:wght@400;600;700&family=Fredoka:wght@500;700&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Noto+Sans+Bengali:wght@400;600;700&display=swap"
         rel="stylesheet">
 
     <!-- Confetti -->
@@ -22,498 +22,441 @@
 
     <style>
         body {
-            background-color: #ffe4e6;
-            font-family: 'Hind Siliguri', sans-serif;
-            overflow-x: hidden;
-            touch-action: manipulation;
+            background-color: #0f172a;
+            font-family: 'Inter', sans-serif;
+            overflow: hidden;
+            touch-action: none;
         }
 
-        .decorative-font {
-            font-family: 'Galada', cursive;
+        .bangla {
+            font-family: 'Noto Sans Bengali', sans-serif;
         }
 
-        .english-font {
-            font-family: 'Fredoka', sans-serif;
+        /* WhatsApp Style Background */
+        #chat-screen {
+            background-color: #efeae2;
+            background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M10 10h10v10H10V10zm20 20h10v10H30V30zm-10 20h10v10H20V50zm40-20h10v10H60V30zm20 20h10v10H80V50zm-20 20h10v10H60V70z' fill='%239ca3af' fill-opacity='0.05'/%3E%3C/svg%3E");
         }
 
-        /* Fancy Border */
-        .wedding-border {
-            border: 8px double #e11d48;
-            padding: 5px;
-            border-radius: 10px;
-            background: #fff0f3;
-            box-shadow: 0 10px 25px rgba(225, 29, 72, 0.2);
+        .dark-mode-chat {
+            background-color: #0b141a;
+            background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M10 10h10v10H10V10zm20 20h10v10H30V30zm-10 20h10v10H20V50zm40-20h10v10H60V30zm20 20h10v10H80V50zm-20 20h10v10H60V70z' fill='%23ffffff' fill-opacity='0.03'/%3E%3C/svg%3E");
+        }
+
+        /* Message Bubbles */
+        .msg {
+            max-width: 80%;
+            margin-bottom: 12px;
+            padding: 8px 12px;
+            border-radius: 8px;
+            font-size: 14px;
             position: relative;
-            z-index: 10;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+            opacity: 0;
+            transform: translateY(20px);
+            animation: popIn 0.3s forwards;
         }
 
-        /* Animations */
-        .shake-wrong {
-            animation: shake 0.5s;
-            border-color: red !important;
+        .msg-in {
+            align-self: flex-start;
+            background: #ffffff;
+            color: #111827;
+            border-top-left-radius: 0;
+        }
+
+        .msg-out {
+            align-self: flex-end;
+            background: #d9fdd3;
+            color: #111827;
+            border-top-right-radius: 0;
+        }
+
+        .msg-sys {
+            align-self: center;
+            background: #fff5c4;
+            color: #4b5563;
+            font-size: 11px;
+            padding: 4px 12px;
+            border-radius: 4px;
+            text-align: center;
+            box-shadow: none;
+            max-width: 90%;
+            margin-top: 5px;
+            margin-bottom: 5px;
+        }
+
+        .msg-hack {
+            align-self: center;
+            background: #000;
+            color: #0f0;
+            border: 1px solid #0f0;
+            font-family: monospace;
+            text-align: center;
+        }
+
+        @keyframes popIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .sender-name {
+            font-size: 11px;
+            font-weight: bold;
+            margin-bottom: 2px;
+            display: block;
+        }
+
+        /* Colors for senders */
+        .color-amma {
+            color: #d946ef;
+        }
+
+        /* Purple */
+        .color-nonod {
+            color: #f59e0b;
+        }
+
+        /* Orange */
+        .color-jamai {
+            color: #3b82f6;
+        }
+
+        /* Blue */
+        .color-arman {
+            color: #ef4444;
+        }
+
+        /* Red */
+
+        /* Header */
+        .header {
+            background-color: #008069;
+            /* WhatsApp Green */
+            color: white;
+        }
+
+        /* Lock Screen */
+        .blur-reveal {
+            filter: blur(10px);
+            transition: filter 1s;
+        }
+
+        .unblur {
+            filter: blur(0);
+        }
+
+        /* Hacker Shake */
+        .shake {
+            animation: shake 0.5s infinite;
         }
 
         @keyframes shake {
-
-            0%,
-            100% {
-                transform: translateX(0);
-            }
-
-            20%,
-            60% {
-                transform: translateX(-5px);
-            }
-
-            40%,
-            80% {
-                transform: translateX(5px);
-            }
-        }
-
-        .pulse-red {
-            animation: pulseRed 2s infinite;
-        }
-
-        @keyframes pulseRed {
             0% {
-                box-shadow: 0 0 0 0 rgba(220, 38, 38, 0.7);
+                transform: translate(1px, 1px) rotate(0deg);
             }
 
-            70% {
-                box-shadow: 0 0 0 20px rgba(220, 38, 38, 0);
-            }
-
-            100% {
-                box-shadow: 0 0 0 0 rgba(220, 38, 38, 0);
-            }
-        }
-
-        /* Loading Bar */
-        .meter-container {
-            width: 100%;
-            height: 20px;
-            background: #ddd;
-            border-radius: 10px;
-            overflow: hidden;
-            margin: 20px 0;
-            border: 2px solid #e11d48;
-        }
-
-        .meter-fill {
-            height: 100%;
-            width: 0%;
-            background: linear-gradient(90deg, #fbbf24, #ef4444);
-            transition: width 0.2s;
-        }
-
-        /* Stamps */
-        .stamp {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%) rotate(-20deg) scale(0);
-            border: 6px solid;
-            font-weight: bold;
-            font-size: 2.5rem;
-            padding: 10px 20px;
-            border-radius: 10px;
-            text-transform: uppercase;
-            opacity: 0;
-            transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-            white-space: nowrap;
-            z-index: 50;
-            background: rgba(255, 255, 255, 0.9);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-        }
-
-        .stamp.visible {
-            transform: translate(-50%, -50%) rotate(-20deg) scale(1);
-            opacity: 1;
-        }
-
-        .stamp-denied {
-            border-color: #dc2626;
-            color: #dc2626;
-            transform: translate(-50%, -50%) rotate(20deg) scale(0);
-        }
-
-        .stamp-denied.visible {
-            transform: translate(-50%, -50%) rotate(20deg) scale(1);
-            opacity: 1;
-        }
-
-        .stamp-approved {
-            border-color: #16a34a;
-            color: #16a34a;
-        }
-
-        .option-btn {
-            @apply w-full bg-white border-2 border-pink-300 text-gray-800 font-bold py-3 px-4 rounded-lg mb-3 shadow-sm transition hover:bg-pink-50 hover:border-pink-500 active:scale-95 text-left flex items-center gap-3;
-        }
-
-        /* Glitch Effect for Reveal */
-        .glitch-text {
-            animation: glitch 0.2s infinite;
-            color: red;
-        }
-
-        @keyframes glitch {
-            0% {
-                transform: translate(0);
+            10% {
+                transform: translate(-1px, -2px) rotate(-1deg);
             }
 
             20% {
-                transform: translate(-2px, 2px);
+                transform: translate(-3px, 0px) rotate(1deg);
+            }
+
+            30% {
+                transform: translate(3px, 2px) rotate(0deg);
             }
 
             40% {
-                transform: translate(-2px, -2px);
+                transform: translate(1px, -1px) rotate(1deg);
+            }
+
+            50% {
+                transform: translate(-1px, 2px) rotate(-1deg);
             }
 
             60% {
-                transform: translate(2px, 2px);
+                transform: translate(-3px, 1px) rotate(0deg);
+            }
+
+            70% {
+                transform: translate(3px, 1px) rotate(-1deg);
             }
 
             80% {
-                transform: translate(2px, -2px);
+                transform: translate(-1px, -1px) rotate(1deg);
+            }
+
+            90% {
+                transform: translate(1px, 2px) rotate(0deg);
             }
 
             100% {
-                transform: translate(0);
+                transform: translate(1px, -2px) rotate(-1deg);
             }
         }
     </style>
 </head>
 
-<body class="min-h-screen flex items-center justify-center p-4">
+<body class="flex items-center justify-center min-h-screen bg-black">
 
-    <!-- SOUNDS -->
-    <audio id="correct-sound" src="https://assets.mixkit.co/sfx/preview/mixkit-positive-notification-951.mp3"></audio>
-    <audio id="wrong-sound"
-        src="https://assets.mixkit.co/sfx/preview/mixkit-wrong-answer-fail-notification-946.mp3"></audio>
-    <audio id="denied-sound" src="https://assets.mixkit.co/sfx/preview/mixkit-game-over-arcade-643.mp3"></audio>
-    <audio id="success-sound" src="https://assets.mixkit.co/sfx/preview/mixkit-winning-chimes-2015.mp3"></audio>
+    <!-- AUDIO -->
+    <audio id="notif-sound" src="https://assets.mixkit.co/sfx/preview/mixkit-software-interface-start-2574.mp3"></audio>
+    <audio id="hack-sound"
+        src="https://assets.mixkit.co/sfx/preview/mixkit-glitch-interference-static-1440.mp3"></audio>
+    <audio id="party-music" loop src="https://pixabay.com/music/beats-happy-birthday-trap-version-13838/"></audio>
 
-    <!-- === SCREEN 1: WELCOME === -->
-    <div id="screen-welcome" class="max-w-md w-full wedding-border text-center relative bg-white">
-        <div
-            class="absolute -top-6 left-1/2 transform -translate-x-1/2 bg-red-600 text-white px-4 py-1 rounded-full text-xs font-bold uppercase tracking-widest shadow-lg animate-pulse">
-            Warning: High Risk
-        </div>
 
-        <div class="mt-8 mb-4">
-            <i class="fas fa-file-contract text-6xl text-red-500 drop-shadow-md"></i>
-        </div>
+    <!-- === SCREEN 1: THE LOCK === -->
+    <div id="screen-lock"
+        class="absolute inset-0 z-50 flex flex-col items-center justify-center bg-gray-900 text-center p-6">
+        <div class="bg-gray-800 p-8 rounded-2xl border border-red-500/50 shadow-2xl max-w-sm w-full">
+            <i class="fas fa-user-secret text-6xl text-red-500 mb-6 animate-pulse"></i>
+            <h1 class="text-2xl font-bold text-white mb-2">SECRET CHAT DETECTED</h1>
+            <p class="text-gray-400 text-sm mb-6 font-mono">
+                Source: "Future Shoshur Bari Group" <br>
+                Status: <span class="text-yellow-400">Active Gossip...</span>
+            </p>
 
-        <h1 class="text-4xl font-bold text-red-600 decorative-font mb-2">বিয়ের পারমিট ফর্ম</h1>
-        <p class="text-gray-500 text-sm mb-6 english-font tracking-wider">Department of Best Friend Affairs</p>
-
-        <div
-            class="bg-pink-50 p-5 rounded-lg text-left text-sm text-gray-700 mb-6 border-l-4 border-pink-500 shadow-inner">
-            <p class="mb-2"><strong>Candidate:</strong> Romana Afroz</p>
-            <p class="mb-2"><strong>Current Age:</strong> <span class="bg-gray-200 px-1 rounded">HIDDEN</span></p>
-            <p class="mb-2"><strong>Risk Factor:</strong> <span class="text-red-500 font-bold">EXTREME
-                    (Bridezilla)</span></p>
-            <p class="text-xs text-gray-500 mt-2 italic">* Failure to pass this test will result in "No Birthday Cake"
-                policy.</p>
-        </div>
-
-        <button onclick="startTest()"
-            class="w-full bg-gradient-to-r from-red-500 to-pink-600 text-white font-bold py-4 rounded-lg hover:from-red-600 hover:to-pink-700 transition shadow-lg transform hover:scale-[1.02]">
-            📝 Start Inspection
-        </button>
-    </div>
-
-    <!-- === SCREEN 2: THE QUIZ === -->
-    <div id="screen-quiz" class="hidden max-w-md w-full wedding-border bg-white text-center">
-
-        <div
-            class="flex justify-between items-center mb-6 text-xs font-bold uppercase tracking-widest text-gray-400 border-b pb-2">
-            <span>Progress: <span id="q-number" class="text-red-500 text-lg">1</span> / 6</span>
-            <span class="text-red-400 animate-pulse"><i class="fas fa-heart"></i> Life Support: On</span>
-        </div>
-
-        <h2 id="question-text"
-            class="text-xl font-bold text-gray-800 mb-8 leading-relaxed h-20 flex items-center justify-center">
-            <!-- Question loads here -->
-        </h2>
-
-        <div id="options-container" class="space-y-3">
-            <!-- Options load here -->
-        </div>
-
-        <div id="feedback-area" class="h-8 mt-4">
-            <p id="feedback" class="text-sm font-bold"></p>
+            <button onclick="unlockChat()"
+                class="w-full bg-red-600 hover:bg-red-500 text-white font-bold py-3 px-6 rounded-lg transition transform active:scale-95 shadow-lg shadow-red-500/30">
+                TAP TO SPY 🕵️‍♀️
+            </button>
+            <p class="text-[10px] text-gray-500 mt-4">* Warning: You might get angry.</p>
         </div>
     </div>
 
-    <!-- === SCREEN 3: SCANNING === -->
-    <div id="screen-scan" class="hidden max-w-md w-full wedding-border bg-white text-center p-8">
-        <div class="relative inline-block mb-6">
-            <i class="fas fa-fingerprint text-8xl text-gray-300"></i>
-            <div class="absolute inset-0 border-t-4 border-red-500 animate-[scan_2s_infinite_linear] opacity-50"></div>
-        </div>
 
-        <h2 class="text-2xl font-bold text-gray-800 mb-2">Analyzing Data...</h2>
-        <p class="text-xs text-gray-400 mb-6">Connecting to Husband's Future Database...</p>
+    <!-- === SCREEN 2: THE CHAT === -->
+    <div id="phone-frame" class="relative w-full h-[100vh] max-w-md bg-white overflow-hidden shadow-2xl blur-reveal">
 
-        <div class="text-left text-sm font-mono text-gray-600 space-y-3 mb-6 bg-gray-50 p-4 rounded shadow-inner">
-            <p id="log-1" class="opacity-0 flex items-center gap-2"><i class="fas fa-check text-green-500"></i>
-                Measuring 'Nakhra' Levels...</p>
-            <p id="log-2" class="opacity-0 flex items-center gap-2 text-red-500 font-bold"><i
-                    class="fas fa-exclamation-triangle"></i> ALERT: Overload Detected!</p>
-            <p id="log-3" class="opacity-0 flex items-center gap-2"><i class="fas fa-search"></i> Searching Cooking
-                Skills...</p>
-            <p id="log-4" class="opacity-0 flex items-center gap-2 text-orange-500"><i class="fas fa-times-circle"></i>
-                Error 404: Skill Not Found.</p>
-            <p id="log-5" class="opacity-0 flex items-center gap-2"><i class="fas fa-calculator"></i> Calculating
-                'Shopping Budget'...</p>
-            <p id="log-6" class="opacity-0 flex items-center gap-2 text-purple-600 font-bold"><i
-                    class="fas fa-infinity"></i> Result: Infinite.</p>
-        </div>
-
-        <div class="meter-container">
-            <div id="scan-meter" class="meter-fill"></div>
-        </div>
-    </div>
-
-    <!-- === SCREEN 4: THE SCARE (DENIED) === -->
-    <div id="screen-denied"
-        class="hidden max-w-md w-full wedding-border bg-gray-900 text-center p-8 border-red-900 relative">
-        <div id="denied-stamp" class="stamp stamp-denied">PERMIT REJECTED</div>
-
-        <i class="fas fa-ban text-6xl text-red-600 mb-6 mt-10"></i>
-        <h1 class="text-3xl text-red-500 font-bold mb-4">APPLICATION FAILED</h1>
-        <p class="text-gray-400 mb-8">Reason: You are too cute to handle domestic pressure.</p>
-
-        <div id="override-msg" class="hidden">
-            <p class="text-green-500 font-mono text-sm glitch-text">> OVERRIDING SYSTEM...</p>
-            <p class="text-green-500 font-mono text-sm glitch-text">> INITIATING BEST FRIEND PROTOCOL...</p>
-        </div>
-    </div>
-
-    <!-- === SCREEN 5: CERTIFICATE (APPROVED) === -->
-    <div id="screen-final" class="hidden max-w-md w-full relative">
-        <div class="wedding-border bg-white text-center p-6 relative overflow-hidden">
-            <!-- Confetti Canvas overlay -->
-
-            <div id="final-stamp" class="stamp stamp-approved">PERMIT APPROVED</div>
-
-            <div class="border-b-2 border-gray-200 pb-4 mb-4 mt-8">
-                <i class="fas fa-crown text-5xl text-yellow-500 mb-2 animate-bounce"></i>
-                <h1 class="text-4xl text-red-600 decorative-font">শুভ জন্মদিন!</h1>
-                <h2 class="text-2xl font-bold text-gray-800 english-font uppercase tracking-widest">Romana</h2>
-            </div>
-
+        <!-- Header -->
+        <div id="chat-header" class="header p-3 flex items-center gap-3 shadow-md z-10 relative">
             <div
-                class="text-left bg-green-50 p-4 rounded border border-green-200 text-sm text-gray-700 leading-relaxed mb-6 shadow-sm">
-                <p class="mb-2 uppercase text-xs font-bold text-green-700">Official Verdict:</p>
-                <p>
-                    রান্নার হাত জঘন্য, রাগ হিমালয় সমান, আর শপিং এর নেশা অসীম হওয়া সত্ত্বেও —
-                    <span class="font-bold text-red-500 bg-red-100 px-1 rounded">"Best Friend Quota"</span>
-                    তে তোমাকে লাইসেন্স দেওয়া হলো।
-                </p>
-                <p class="mt-4 text-xs text-gray-500 italic border-t border-green-200 pt-2">
-                    * Warning: ঝগড়ার সময় আরমান (Best Friend) এর সাপোর্ট বাধ্যতামূলক।
-                </p>
+                class="w-10 h-10 rounded-full bg-gray-300 flex items-center justify-center text-gray-600 font-bold overflow-hidden">
+                <i class="fas fa-users"></i>
             </div>
-
-            <div class="mt-4 bg-pink-100 p-3 rounded-lg transform -rotate-1">
-                <p class="english-font font-bold text-pink-600 text-lg">Happy Birthday Bestie! 🎉</p>
-                <p class="text-xs text-gray-500 mt-1">From: Arman (Your 24/7 Support Center)</p>
+            <div class="flex-1">
+                <h2 class="font-bold text-base leading-tight">Future In-Laws 🐍</h2>
+                <p id="typing-indicator" class="text-xs text-green-100 opacity-0">Amma is typing...</p>
             </div>
-
-            <button onclick="location.reload()"
-                class="mt-6 text-gray-400 hover:text-red-500 text-xs uppercase tracking-widest transition">Apply
-                Again</button>
+            <div class="flex gap-4 text-xl">
+                <i class="fas fa-video"></i>
+                <i class="fas fa-phone"></i>
+                <i class="fas fa-ellipsis-v"></i>
+            </div>
         </div>
+
+        <!-- Chat Area -->
+        <div id="chat-screen" class="h-full overflow-y-auto p-4 flex flex-col pb-20">
+            <!-- Messages will be injected here -->
+        </div>
+
+        <!-- Footer -->
+        <div class="absolute bottom-0 w-full bg-gray-100 p-2 flex items-center gap-2 z-10">
+            <div class="bg-white rounded-full p-2 text-gray-500"><i class="far fa-smile"></i></div>
+            <div class="flex-1 bg-white rounded-full px-4 py-2 text-gray-400 text-sm">Read only...</div>
+            <div class="bg-teal-600 rounded-full p-3 text-white"><i class="fas fa-microphone"></i></div>
+        </div>
+
     </div>
 
     <script>
-        // --- DATA ---
-        const questions = [
+        const chatScreen = document.getElementById('chat-screen');
+        const typingInd = document.getElementById('typing-indicator');
+        const header = document.getElementById('chat-header');
+        const phoneFrame = document.getElementById('phone-frame');
+
+        // Sounds
+        const sndNotif = document.getElementById('notif-sound');
+        const sndHack = document.getElementById('hack-sound');
+        const sndMusic = document.getElementById('party-music');
+
+        let msgDelay = 1500; // Speed of chat
+
+        const chatScript = [
             {
-                q: "জামাই যদি অফিস থেকে ফিরতে ১ ঘণ্টা দেরি করে, তুমি কি করবে?",
-                options: [
-                    { text: "কান্না করে ঘর ভাসাবো 😭", correct: false, msg: "উফ! নাটক কম করো!" },
-                    { text: "ফোন দিয়ে ঝাড়ি দিবো 😡", correct: true, msg: "Correct! আসল রূপ বের হয়ে গেছে!" },
-                    { text: "বলব 'কোন সমস্যা নেই জানু' 🥰", correct: false, msg: "মিথ্যা কথা! তুমি এত ভালো না।" }
-                ]
+                sender: "Amma (Future MIL)", color: "color-amma",
+                text: "শোন সবাই, কালকে না ওই মেয়েটার জন্মদিন? ওই যে, রোমানা?",
+                delay: 1000
             },
             {
-                q: "শ্বাশুড়ি আম্মা যদি রান্নায় লবণ কম হয়েছে বলে?",
-                options: [
-                    { text: "বলব 'লবণ খাওয়া স্বাস্থ্যের জন্য খারাপ' 😌", correct: true, msg: "শাবাশ! বুদ্ধিমতী বউ।" },
-                    { text: "আবার রান্না করব 🍳", correct: false, msg: "পাগল নাকি? এত কাজ কে করবে?" },
-                    { text: "রাগ করে বাপের বাড়ি যাব 🏃‍♀️", correct: false, msg: "এত ছোট কারণে না!" }
-                ]
+                sender: "Jamai (Future Husband)", color: "color-jamai",
+                text: "হ্যাঁ আম্মা, কালকেই তো। আমি কি গিফট দিবো ভাবছি...",
+                delay: 2000
             },
             {
-                q: "বিয়ের পর 'আমি ৫ মিনিটে রেডি হচ্ছি' - এর আসল মানে কি?",
-                options: [
-                    { text: "সত্যিই ৫ মিনিট ⏰", correct: false, msg: "হাসালেন আপা!" },
-                    { text: "সর্বনিম্ন ১ ঘণ্টা 💄", correct: true, msg: "Universal Truth!" },
-                    { text: "আগামীকাল 🗓️", correct: false, msg: "বেশি হয়ে গেল!" }
-                ]
+                sender: "Nonod (Sister-in-Law)", color: "color-nonod",
+                text: "ভাইয়া, ওকে একটা 'অ্যালার্ম ঘড়ি' গিফট করো! 😂",
+                delay: 2500
             },
             {
-                q: "শপিং এ গিয়ে যদি কোনো ড্রেস পছন্দ না হয়?",
-                options: [
-                    { text: "অন্য মার্কেটে যাবো 🛍️", correct: true, msg: "স্বাভাবিক! পুরা শহর ঘুরতে হবে।" },
-                    { text: "বাসায় চলে আসবো 🏠", correct: false, msg: "অসম্ভব! খালি হাতে ফেরা নিষেধ।" },
-                    { text: "জামাইকে বকা দিবো 🤬", correct: false, msg: "জামাইয়ের কি দোষ বেচারা!" }
-                ]
+                sender: "Nonod (Sister-in-Law)", color: "color-nonod",
+                text: "শুনলাম ভাবি নাকি দুপুর ১২ টার আগে ঘুম থেকে উঠে না!",
+                delay: 1500
             },
             {
-                q: "প্রথম ঝগড়ার পর কে আগে 'সরি' বলবে?",
-                options: [
-                    { text: "আমি (Romana) 🙋‍♀️", correct: false, msg: "জীবনেও না! ইগো অনেক বড়।" },
-                    { text: "জামাই (Husband) 🤦‍♂️", correct: true, msg: "বেচারা জামাই! উপায় নাই।" },
-                    { text: "কেউ না, যুদ্ধ চলবে ⚔️", correct: false, msg: "সংসার টেকবে না তাহলে।" }
-                ]
+                sender: "Amma (Future MIL)", color: "color-amma",
+                text: "ওমা বলো কি! 😱 তাহলে আমার সকালের চা কে বানাবে?",
+                delay: 2000
             },
             {
-                q: "বিয়ের পর আরমান (Best Friend) কল দিলে কি করবে?",
-                options: [
-                    { text: "জামাইকে দিয়ে দেওয়াব 📞", correct: false, msg: "বিশ্বাসঘাতক!" },
-                    { text: "ঝগড়া করার জন্য ফোন ধরব 🗣️", correct: true, msg: "একদম ঠিক! ঝগড়াই আমাদের প্রেম।" }
-                ]
-            }
+                sender: "Jamai (Future Husband)", color: "color-jamai",
+                text: "আস্তে বলো... ও শুনলে কিন্তু আমাকে শেষ করে দিবে। 🤐",
+                delay: 2000
+            },
+            {
+                sender: "Amma (Future MIL)", color: "color-amma",
+                text: "রান্না তো মনে হয় কিছুই পারে না। কালকে ওকে দিয়ে ২০ জনের রান্না করাবো। টেস্ট নিবো। 😏",
+                delay: 2500
+            },
+            {
+                sender: "Nonod (Sister-in-Law)", color: "color-nonod",
+                text: "হ্যাঁ মা! আর গিফট হিসেবে একটা 'রান্নার বই' দিও। 🤣",
+                delay: 2000
+            },
+            // THE HACK STARTS HERE
+            { type: 'system', text: "⚠ UNUSUAL ACTIVITY DETECTED" },
+            { type: 'system', text: "⚠ BEST FRIEND PROTOCOL ACTIVATED" },
+            { type: 'hack_intro', delay: 500 },
+            {
+                sender: "Arman (HACKER)", color: "color-arman",
+                text: "OYE!!! STOP RIGHT THERE! 🛑",
+                delay: 1000
+            },
+            {
+                sender: "Arman (HACKER)", color: "color-arman",
+                text: "আমার বেস্ট ফ্রেন্ড এর নামে গসিপ করা চলবে না! 😡",
+                delay: 1500
+            },
+            { type: 'action', text: "Arman removed 'Amma' from the group." },
+            { type: 'action', text: "Arman removed 'Nonod' from the group." },
+            { type: 'action', text: "Arman muted 'Jamai'." },
+            {
+                sender: "Arman (HACKER)", color: "color-arman",
+                text: "রোমানা ঘুমালে ঘুমাক! রান্নাবান্না অর্ডার করা হবে! 🍕",
+                delay: 1500
+            },
+            { type: 'rename', text: "Group Name changed to 'Happy Birthday Romana! 🎉'" },
+            { type: 'finale' } // Triggers confetti
         ];
 
-        let currentQ = 0;
-        const correctSound = document.getElementById('correct-sound');
-        const wrongSound = document.getElementById('wrong-sound');
-        const deniedSound = document.getElementById('denied-sound');
-        const successSound = document.getElementById('success-sound');
+        function unlockChat() {
+            document.getElementById('screen-lock').style.display = 'none';
+            phoneFrame.classList.remove('blur-reveal');
 
-        // --- LOGIC ---
-        function startTest() {
-            document.getElementById('screen-welcome').classList.add('hidden');
-            document.getElementById('screen-quiz').classList.remove('hidden');
-            loadQuestion();
+            // Start sequence
+            processScript(0);
         }
 
-        function loadQuestion() {
-            const data = questions[currentQ];
-            document.getElementById('q-number').innerText = currentQ + 1;
-            document.getElementById('question-text').innerText = data.q;
-            document.getElementById('feedback').innerText = "";
+        function processScript(index) {
+            if (index >= chatScript.length) return;
 
-            const container = document.getElementById('options-container');
-            container.innerHTML = ""; // Clear old
+            const item = chatScript[index];
+            let currentDelay = item.delay || 1500;
 
-            data.options.forEach(opt => {
-                const btn = document.createElement('button');
-                btn.className = "option-btn";
-                btn.innerHTML = `<span>${opt.text}</span>`;
-                btn.onclick = () => checkAnswer(btn, opt.correct, opt.msg);
-                container.appendChild(btn);
-            });
-        }
-
-        function checkAnswer(btn, isCorrect, msg) {
-            const feedback = document.getElementById('feedback');
-            const feedbackArea = document.getElementById('feedback-area');
-
-            // Disable all buttons
-            const allBtns = document.querySelectorAll('.option-btn');
-            allBtns.forEach(b => b.disabled = true);
-
-            if (isCorrect) {
-                btn.style.borderColor = "#22c55e"; // Green
-                btn.style.backgroundColor = "#f0fdf4";
-                btn.innerHTML += '<i class="fas fa-check-circle text-green-500 ml-auto"></i>';
-
-                feedback.innerText = msg;
-                feedback.className = "text-green-600";
-                correctSound.play();
-
-                setTimeout(() => {
-                    currentQ++;
-                    if (currentQ < questions.length) {
-                        loadQuestion();
-                    } else {
-                        startScanning();
-                    }
-                }, 1500);
-            } else {
-                btn.classList.add('shake-wrong');
-                btn.innerHTML += '<i class="fas fa-times-circle text-red-500 ml-auto"></i>';
-
-                feedback.innerText = msg;
-                feedback.className = "text-red-500";
-                wrongSound.play();
-
-                // Allow retry
-                setTimeout(() => {
-                    btn.classList.remove('shake-wrong');
-                    allBtns.forEach(b => b.disabled = false);
-                }, 800);
+            if (item.type === 'hack_intro') {
+                triggerHackEffect();
+                setTimeout(() => processScript(index + 1), 2000);
+                return;
             }
+
+            if (item.type === 'finale') {
+                triggerFinale();
+                return;
+            }
+
+            if (item.type === 'rename') {
+                document.querySelector('h2').innerText = "Happy Birthday Romana! 🎉";
+                addSystemMsg(item.text);
+                setTimeout(() => processScript(index + 1), 1000);
+                return;
+            }
+
+            if (item.type === 'system' || item.type === 'action') {
+                addSystemMsg(item.text);
+                setTimeout(() => processScript(index + 1), 1000);
+                return;
+            }
+
+            // Regular Message
+            // Show typing indicator
+            typingInd.innerText = `${item.sender.split(' ')[0]} is typing...`;
+            typingInd.style.opacity = '1';
+
+            setTimeout(() => {
+                typingInd.style.opacity = '0';
+                addMessage(item);
+                sndNotif.currentTime = 0;
+                sndNotif.play().catch(e => { });
+
+                setTimeout(() => processScript(index + 1), 500); // Wait bit before next logic
+            }, currentDelay);
         }
 
-        function startScanning() {
-            document.getElementById('screen-quiz').classList.add('hidden');
-            document.getElementById('screen-scan').classList.remove('hidden');
+        function addMessage(item) {
+            const div = document.createElement('div');
+            // Check if it's Arman (Hacker)
+            if (item.color === 'color-arman') {
+                div.className = `msg msg-out border border-red-500 bg-red-50`;
+            } else {
+                div.className = `msg msg-in`;
+            }
 
-            const meter = document.getElementById('scan-meter');
-            let progress = 0;
-
-            // Animate Progress & Logs
-            const timer = setInterval(() => {
-                progress += 0.5;
-                meter.style.width = progress + "%";
-                if (progress > 100) clearInterval(timer);
-            }, 30);
-
-            // Reveal logs sequentially
-            setTimeout(() => document.getElementById('log-1').classList.remove('opacity-0'), 500);
-            setTimeout(() => document.getElementById('log-2').classList.remove('opacity-0'), 1500);
-            setTimeout(() => document.getElementById('log-3').classList.remove('opacity-0'), 2500);
-            setTimeout(() => document.getElementById('log-4').classList.remove('opacity-0'), 3500);
-            setTimeout(() => document.getElementById('log-5').classList.remove('opacity-0'), 4500);
-            setTimeout(() => document.getElementById('log-6').classList.remove('opacity-0'), 5500);
-
-            setTimeout(showScare, 7000);
+            div.innerHTML = `
+                <span class="sender-name ${item.color}">${item.sender}</span>
+                ${item.text}
+                <span class="text-[9px] text-gray-400 block text-right mt-1">Now</span>
+            `;
+            chatScreen.appendChild(div);
+            chatScreen.scrollTop = chatScreen.scrollHeight;
         }
 
-        function showScare() {
-            document.getElementById('screen-scan').classList.add('hidden');
-            document.getElementById('screen-denied').classList.remove('hidden');
-
-            // Scary Sound
-            deniedSound.play();
-
-            // Show Denied Stamp
-            setTimeout(() => {
-                document.getElementById('denied-stamp').classList.add('visible');
-            }, 500);
-
-            // Override Logic
-            setTimeout(() => {
-                const override = document.getElementById('override-msg');
-                override.classList.remove('hidden');
-
-                // Typing effect sounds here if wanted
-            }, 3000);
-
-            setTimeout(showFinal, 6000);
+        function addSystemMsg(text) {
+            const div = document.createElement('div');
+            div.className = "msg-sys";
+            div.innerHTML = text;
+            chatScreen.appendChild(div);
+            chatScreen.scrollTop = chatScreen.scrollHeight;
         }
 
-        function showFinal() {
-            document.getElementById('screen-denied').classList.add('hidden');
-            document.getElementById('screen-final').classList.remove('hidden');
+        function triggerHackEffect() {
+            // Shake screen
+            phoneFrame.classList.add('shake');
+            sndHack.play();
 
-            // Happy Sound
-            successSound.play();
+            // Invert colors momentarily
+            chatScreen.style.filter = "invert(1)";
 
-            // Stamp Effect
             setTimeout(() => {
-                document.getElementById('final-stamp').classList.add('visible');
-                fireConfetti();
-            }, 500);
+                chatScreen.style.filter = "invert(0)";
+                phoneFrame.classList.remove('shake');
+
+                // Change Theme to Dark/Hacker
+                chatScreen.classList.add('dark-mode-chat');
+                header.style.backgroundColor = "#000000";
+            }, 1000);
+        }
+
+        function triggerFinale() {
+            sndMusic.play();
+            fireConfetti();
+
+            // Add Final Wish Bubble
+            const div = document.createElement('div');
+            div.className = "msg msg-hack w-full animate-bounce mt-8 p-6";
+            div.innerHTML = `
+                <h1 class="text-2xl font-bold mb-2">HAPPY BIRTHDAY BESTIE!</h1>
+                <p class="text-white text-sm">
+                    Don't worry about in-laws, I've handled them. 😎<br>
+                    Enjoy your last single birthday!
+                </p>
+                <p class="text-xs text-gray-500 mt-4">- Hacker Arman</p>
+            `;
+            chatScreen.appendChild(div);
+            chatScreen.scrollTop = chatScreen.scrollHeight;
         }
 
         function fireConfetti() {
@@ -530,6 +473,7 @@
                 confetti(Object.assign({}, defaults, { particleCount, origin: { x: random(0.7, 0.9), y: Math.random() - 0.2 } }));
             }, 250);
         }
+
     </script>
 </body>
 
